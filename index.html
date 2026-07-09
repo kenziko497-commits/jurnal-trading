@@ -10,129 +10,67 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
   * { font-family: 'Inter', sans-serif; }
-
   :root {
-    --bg: #fafaf9;
-    --card-bg: #ffffff;
-    --border: #e7e5e4;
-    --border-soft: #f5f5f4;
-    --text-primary: #1c1917;
-    --text-secondary: #78716c;
-    --text-muted: #a8a29e;
-    --input-bg: #f5f5f4;
-    --hover-bg: #fafaf9;
-    --grid: #f5f5f4;
-    --chip-long-bg: #ecfdf5;
-    --chip-long-text: #047857;
-    --chip-short-bg: #fef2f2;
-    --chip-short-text: #b91c1c;
-    --icon-emerald-bg: #ecfdf5;
-    --icon-blue-bg: #eff6ff;
-    --icon-amber-bg: #fffbeb;
-    --tooltip-bg: #1c1917;
-    --tooltip-text: #fafaf9;
+    --bg: #fafaf9; --card-bg: #ffffff; --border: #e7e5e4; --border-soft: #f5f5f4;
+    --text-primary: #1c1917; --text-secondary: #78716c; --text-muted: #a8a29e;
+    --input-bg: #f5f5f4; --hover-bg: #fafaf9; --grid: #f5f5f4;
+    --chip-long-bg: #ecfdf5; --chip-long-text: #047857;
+    --chip-short-bg: #fef2f2; --chip-short-text: #b91c1c;
+    --icon-emerald-bg: #ecfdf5; --icon-blue-bg: #eff6ff; --icon-amber-bg: #fffbeb;
+    --tooltip-bg: #1c1917; --tooltip-text: #fafaf9;
     --shadow: 0 12px 30px -8px rgba(28,25,23,0.08);
-    --modal-overlay: rgba(28,25,23,0.4);
-    --header-bg: rgba(255,255,255,0.82);
-    --active-bg: #1c1917;
-    --active-text: #ffffff;
-    --upload-bg: #fafaf9;
-    --upload-border: #d6d3d1;
+    --modal-overlay: rgba(28,25,23,0.4); --header-bg: rgba(255,255,255,0.82);
+    --active-bg: #1c1917; --active-text: #ffffff;
+    --upload-bg: #fafaf9; --upload-border: #d6d3d1;
   }
-
   html.dark {
-    --bg: #0a0a0a;
-    --card-bg: #141414;
-    --border: #262626;
-    --border-soft: #1f1f1f;
-    --text-primary: #fafafa;
-    --text-secondary: #a3a3a3;
-    --text-muted: #737373;
-    --input-bg: #0a0a0a;
-    --hover-bg: #1c1c1c;
-    --grid: #1f1f1f;
-    --chip-long-bg: rgba(16,185,129,0.12);
-    --chip-long-text: #34d399;
-    --chip-short-bg: rgba(239,68,68,0.12);
-    --chip-short-text: #f87171;
-    --icon-emerald-bg: rgba(16,185,129,0.12);
-    --icon-blue-bg: rgba(59,130,246,0.12);
+    --bg: #0a0a0a; --card-bg: #141414; --border: #262626; --border-soft: #1f1f1f;
+    --text-primary: #fafafa; --text-secondary: #a3a3a3; --text-muted: #737373;
+    --input-bg: #0a0a0a; --hover-bg: #1c1c1c; --grid: #1f1f1f;
+    --chip-long-bg: rgba(16,185,129,0.12); --chip-long-text: #34d399;
+    --chip-short-bg: rgba(239,68,68,0.12); --chip-short-text: #f87171;
+    --icon-emerald-bg: rgba(16,185,129,0.12); --icon-blue-bg: rgba(59,130,246,0.12);
     --icon-amber-bg: rgba(217,119,6,0.12);
-    --tooltip-bg: #262626;
-    --tooltip-text: #fafafa;
-    --shadow: 0 12px 30px -8px rgba(0,0,0,0.5);
-    --modal-overlay: rgba(0,0,0,0.7);
-    --header-bg: rgba(10,10,10,0.82);
-    --active-bg: #10b981;
-    --active-text: #ffffff;
-    --upload-bg: #0f0f0f;
-    --upload-border: #333;
+    --tooltip-bg: #262626; --tooltip-text: #fafafa;
+    --shadow: 0 12px 30px -8px rgba(0,0,0,0.5); --modal-overlay: rgba(0,0,0,0.7);
+    --header-bg: rgba(10,10,10,0.82); --active-bg: #10b981; --active-text: #ffffff;
+    --upload-bg: #0f0f0f; --upload-border: #333;
   }
-
   body { background: var(--bg); color: var(--text-primary); transition: background 0.35s ease, color 0.35s ease; }
-
   .card { background: var(--card-bg); border: 1px solid var(--border); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
   .card-lift:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
-
   .header-bar { background: var(--header-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
-
   .text-primary { color: var(--text-primary) !important; }
   .text-secondary { color: var(--text-secondary) !important; }
   .text-muted { color: var(--text-muted) !important; }
-
-  .select-native {
-    background-color: var(--input-bg);
-    border: 1px solid var(--border);
-    color: var(--text-primary);
-    padding: 0.4rem 0.75rem;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    outline: none;
-    appearance: menulist;
-    -webkit-appearance: menulist;
-  }
+  .select-native { background-color: var(--input-bg); border: 1px solid var(--border); color: var(--text-primary); padding: 0.4rem 0.75rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; outline: none; appearance: menulist; -webkit-appearance: menulist; }
   .select-native:hover { border-color: var(--text-muted); }
   .select-native:focus { border-color: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,0.15); }
-
   .bg-input { background: var(--input-bg); border: 1px solid var(--border); color: var(--text-primary); transition: all 0.2s ease; }
   .bg-input:focus { border-color: #10b981 !important; box-shadow: 0 0 0 3px rgba(16,185,129,0.15); outline: none; }
-
   .bg-soft { background: var(--border-soft); }
-
   .chip-long { background: var(--chip-long-bg); color: var(--chip-long-text); }
   .chip-short { background: var(--chip-short-bg); color: var(--chip-short-text); }
-
   .icon-emerald { background: var(--icon-emerald-bg); color: #10b981; }
   .icon-blue { background: var(--icon-blue-bg); color: #3b82f6; }
   .icon-amber { background: var(--icon-amber-bg); color: #d97706; }
-
   .btn-primary { background: var(--text-primary); color: var(--card-bg); transition: all 0.25s ease; cursor: pointer; border: none; }
-  .btn-primary:hover { background: #10b981; color: #fff; transform: translateY(-1px); box-shadow: 0 8px 20px -5px rgba(16,185,129,0.4); }
-  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
+  .btn-primary:hover:not(:disabled) { background: #10b981; color: #fff; transform: translateY(-1px); box-shadow: 0 8px 20px -5px rgba(16,185,129,0.4); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
   .btn-secondary { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-primary); transition: all 0.2s ease; cursor: pointer; }
   .btn-secondary:hover { background: var(--hover-bg); }
-
   .btn-icon { background: transparent; color: var(--text-secondary); transition: all 0.25s ease; cursor: pointer; border: 1px solid var(--border); }
   .btn-icon:hover { background: var(--input-bg); color: var(--text-primary); transform: rotate(15deg); }
-
   .scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
   .scrollbar::-webkit-scrollbar-track { background: transparent; }
   .scrollbar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
-
   .pulse-dot { position: relative; }
   .pulse-dot::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; background: #10b981; opacity: 0.4; animation: ring 2s infinite; }
   @keyframes ring { 0% { transform: scale(0.8); opacity: 0.6; } 100% { transform: scale(2); opacity: 0; } }
-
   .progress-ring { transform: rotate(-90deg); }
   .progress-ring-circle { transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
-
   .modal-wrapper { position: fixed; inset: 0; z-index: 50; display: none; align-items: center; justify-content: center; padding: 1rem; }
   .modal-wrapper.open { display: flex; }
   .modal-overlay-bg { position: absolute; inset: 0; background: var(--modal-overlay); backdrop-filter: blur(4px); opacity: 0; transition: opacity 0.3s ease; z-index: 0; }
@@ -141,21 +79,14 @@
   .modal-panel-lg { max-width: 56rem; }
   .modal-panel-md { max-width: 42rem; }
   .modal-wrapper.open .modal-panel { transform: translateY(0) scale(1); opacity: 1; }
-
   .chart-container { position: relative; height: 260px; }
-
   .theme-toggle-icon { transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); display: inline-block; }
   .theme-toggle-icon.spin { transform: rotate(360deg); }
-
-  html.dark input[type="date"]::-webkit-calendar-picker-indicator,
-  html.dark input[type="time"]::-webkit-calendar-picker-indicator { filter: invert(0.8); }
-
+  html.dark input[type="date"]::-webkit-calendar-picker-indicator, html.dark input[type="time"]::-webkit-calendar-picker-indicator { filter: invert(0.8); }
   html { scroll-behavior: smooth; }
-
   @keyframes fadeInCard { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes spin { to { transform: rotate(360deg); } }
   .spinner { animation: spin 0.8s linear infinite; }
-
   .upload-area { background: var(--upload-bg); border: 2px dashed var(--upload-border); border-radius: 12px; padding: 1.25rem; transition: all 0.2s ease; cursor: pointer; position: relative; }
   .upload-area:hover { border-color: #10b981; background: var(--hover-bg); }
   .upload-area.has-image { border-style: solid; padding: 0; overflow: hidden; }
@@ -163,94 +94,45 @@
   .thumbnail-preview { width: 100%; height: 180px; object-fit: cover; display: block; }
   .remove-img-btn { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: rgba(0,0,0,0.6); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; transition: all 0.2s; z-index: 5; }
   .remove-img-btn:hover { background: #ef4444; transform: scale(1.1); }
-
   .detail-screenshot { width: 100%; max-height: 500px; object-fit: contain; background: var(--input-bg); border-radius: 8px; cursor: zoom-in; }
   .info-item { padding: 0.75rem; border-radius: 10px; background: var(--input-bg); }
   .info-label { font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
   .info-value { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); }
-
   .zoom-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 100; display: none; align-items: center; justify-content: center; padding: 2rem; cursor: zoom-out; }
   .zoom-overlay.open { display: flex; }
   .zoom-overlay img { max-width: 100%; max-height: 100%; object-fit: contain; }
-
-  .trade-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: fadeInCard 0.4s ease both;
-    position: relative;
-  }
-  .trade-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow);
-    border-color: var(--text-muted);
-  }
+  .trade-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; cursor: pointer; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); animation: fadeInCard 0.4s ease both; position: relative; }
+  .trade-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--text-muted); }
   .trade-card-img { width: 100%; height: 120px; object-fit: cover; display: block; background: var(--input-bg); }
-  .trade-card-placeholder {
-    width: 100%; height: 120px;
-    background: var(--input-bg);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--text-muted);
-  }
+  .trade-card-placeholder { width: 100%; height: 120px; background: var(--input-bg); display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
   .trade-card-body { padding: 0.875rem; }
-  .trade-card-side-tag {
-    position: absolute; top: 10px; right: 10px;
-    padding: 0.2rem 0.6rem; border-radius: 6px;
-    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.05em;
-    backdrop-filter: blur(8px);
-  }
-
-  .month-btn {
-    width: 36px; height: 36px; border-radius: 10px;
-    display: inline-flex; align-items: center; justify-content: center;
-    background: var(--input-bg); border: 1px solid var(--border);
-    color: var(--text-primary); cursor: pointer;
-    transition: all 0.2s ease;
-  }
+  .trade-card-side-tag { position: absolute; top: 10px; right: 10px; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.05em; backdrop-filter: blur(8px); }
+  .month-btn { width: 36px; height: 36px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; background: var(--input-bg); border: 1px solid var(--border); color: var(--text-primary); cursor: pointer; transition: all 0.2s ease; }
   .month-btn:hover:not(:disabled) { background: var(--hover-bg); border-color: var(--text-muted); transform: scale(1.05); }
   .month-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-
   .mini-stat { padding: 0.75rem 1rem; border-radius: 12px; background: var(--input-bg); }
   .mini-stat-label { font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15rem; }
   .mini-stat-value { font-size: 1rem; font-weight: 700; color: var(--text-primary); }
-
-  /* Toast */
   .toast-container { position: fixed; top: 80px; right: 20px; z-index: 200; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
-  .toast {
-    pointer-events: auto;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-left: 4px solid #10b981;
-    padding: 0.75rem 1rem;
-    border-radius: 10px;
-    box-shadow: var(--shadow);
-    min-width: 280px;
-    max-width: 360px;
-    animation: slideInToast 0.3s ease;
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
+  .toast { pointer-events: auto; background: var(--card-bg); border: 1px solid var(--border); border-left: 4px solid #10b981; padding: 0.75rem 1rem; border-radius: 10px; box-shadow: var(--shadow); min-width: 280px; max-width: 360px; animation: slideInToast 0.3s ease; display: flex; align-items: flex-start; gap: 0.75rem; }
   .toast.error { border-left-color: #ef4444; }
   .toast.warning { border-left-color: #d97706; }
   .toast.info { border-left-color: #3b82f6; }
   @keyframes slideInToast { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
   @keyframes slideOutToast { to { transform: translateX(120%); opacity: 0; } }
   .toast.removing { animation: slideOutToast 0.3s ease forwards; }
-
-  /* Sync status */
   .sync-status { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.25rem 0.6rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 500; }
   .sync-status.connected { background: var(--chip-long-bg); color: var(--chip-long-text); }
   .sync-status.disconnected { background: var(--chip-short-bg); color: var(--chip-short-text); }
   .sync-status.syncing { background: var(--icon-amber-bg); color: #d97706; }
-
-  /* Setup guide */
   .setup-step { padding: 1rem; border-radius: 10px; background: var(--input-bg); border-left: 3px solid #10b981; margin-bottom: 0.75rem; }
   .setup-step-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: #10b981; color: white; font-size: 0.7rem; font-weight: 700; margin-right: 0.5rem; }
-  .code-block { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.7rem; color: var(--text-primary); overflow-x: auto; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; }
+  .code-block { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.7rem; color: var(--text-primary); overflow-x: auto; white-space: pre-wrap; word-break: break-all; max-height: 260px; overflow-y: auto; }
+  .alert-box { padding: 0.75rem 1rem; border-radius: 10px; font-size: 0.8rem; display: flex; align-items: flex-start; gap: 0.6rem; }
+  .alert-warning { background: var(--icon-amber-bg); color: #92400e; border: 1px solid rgba(217,119,6,0.2); }
+  html.dark .alert-warning { color: #fbbf24; }
+  .alert-info { background: var(--icon-blue-bg); color: #1e40af; border: 1px solid rgba(59,130,246,0.2); }
+  html.dark .alert-info { color: #93c5fd; }
 </style>
 </head>
 <body class="min-h-screen">
@@ -301,7 +183,6 @@
     </div>
   </section>
 
-  <!-- GLOBAL STATS -->
   <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
     <div class="card card-lift rounded-xl p-5 reveal">
       <div class="flex items-start justify-between mb-3">
@@ -342,7 +223,6 @@
     </div>
   </section>
 
-  <!-- RIWAYAT TRADE (GRID per BULAN) -->
   <section class="card rounded-xl overflow-hidden reveal">
     <div class="p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3" style="border-bottom: 1px solid var(--border);">
       <div>
@@ -355,19 +235,14 @@
         <i class="fas fa-plus text-[10px]"></i> Tambah
       </button>
     </div>
-
     <div class="p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3" style="border-bottom: 1px solid var(--border);">
       <div class="flex items-center gap-2">
-        <button type="button" id="prevMonth" class="month-btn" onclick="changeMonth(-1)" title="Bulan sebelumnya">
-          <i class="fas fa-chevron-left text-xs"></i>
-        </button>
+        <button type="button" id="prevMonth" class="month-btn" onclick="changeMonth(-1)"><i class="fas fa-chevron-left text-xs"></i></button>
         <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-soft min-w-[160px] justify-center">
           <i class="fas fa-calendar text-emerald-500 text-xs"></i>
           <span id="currentMonthLabel" class="text-sm font-semibold text-primary">—</span>
         </div>
-        <button type="button" id="nextMonth" class="month-btn" onclick="changeMonth(1)" title="Bulan berikutnya">
-          <i class="fas fa-chevron-right text-xs"></i>
-        </button>
+        <button type="button" id="nextMonth" class="month-btn" onclick="changeMonth(1)"><i class="fas fa-chevron-right text-xs"></i></button>
       </div>
       <div class="flex items-center gap-2 flex-wrap">
         <select id="monthSelect" onchange="setMonth(this.value)" class="select-native text-xs">
@@ -379,74 +254,42 @@
         </div>
       </div>
     </div>
-
     <div class="p-4 sm:p-5 grid grid-cols-2 md:grid-cols-4 gap-2" style="border-bottom: 1px solid var(--border);">
-      <div class="mini-stat">
-        <div class="mini-stat-label">P&L Bulan Ini</div>
-        <div class="mini-stat-value" id="month-pnl">$0</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-label">Jumlah Trade</div>
-        <div class="mini-stat-value" id="month-count">0</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-label">Win Rate</div>
-        <div class="mini-stat-value" id="month-wr">0%</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-label">Best Trade</div>
-        <div class="mini-stat-value" id="month-best">$0</div>
-      </div>
+      <div class="mini-stat"><div class="mini-stat-label">P&L Bulan Ini</div><div class="mini-stat-value" id="month-pnl">$0</div></div>
+      <div class="mini-stat"><div class="mini-stat-label">Jumlah Trade</div><div class="mini-stat-value" id="month-count">0</div></div>
+      <div class="mini-stat"><div class="mini-stat-label">Win Rate</div><div class="mini-stat-value" id="month-wr">0%</div></div>
+      <div class="mini-stat"><div class="mini-stat-label">Best Trade</div><div class="mini-stat-value" id="month-best">$0</div></div>
     </div>
-
     <div id="tradeGrid" class="p-4 sm:p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3"></div>
   </section>
 
-  <!-- CHARTS -->
   <section class="grid grid-cols-1 lg:grid-cols-2 gap-4">
     <div class="card card-lift rounded-xl p-6 reveal">
       <div class="flex items-center justify-between mb-5">
-        <div>
-          <h3 class="font-semibold text-sm text-primary">Kurva Ekuitas</h3>
-          <p class="text-xs text-secondary mt-0.5">Pertumbuhan akun</p>
-        </div>
+        <div><h3 class="font-semibold text-sm text-primary">Kurva Ekuitas</h3><p class="text-xs text-secondary mt-0.5">Pertumbuhan akun</p></div>
         <select id="equity-range" onchange="renderEquityChart()" class="select-native text-xs">
-          <option value="all">Semua</option>
-          <option value="30">30 Hari</option>
-          <option value="90">90 Hari</option>
+          <option value="all">Semua</option><option value="30">30 Hari</option><option value="90">90 Hari</option>
         </select>
       </div>
       <div class="chart-container"><canvas id="equityChart"></canvas></div>
     </div>
-
     <div class="card card-lift rounded-xl p-6 reveal">
       <div class="flex items-center justify-between mb-5">
-        <div>
-          <h3 class="font-semibold text-sm text-primary">P&L Harian</h3>
-          <p class="text-xs text-secondary mt-0.5">Profit & loss per hari</p>
-        </div>
+        <div><h3 class="font-semibold text-sm text-primary">P&L Harian</h3><p class="text-xs text-secondary mt-0.5">Profit & loss per hari</p></div>
         <i class="fas fa-chart-column text-muted text-sm"></i>
       </div>
       <div class="chart-container"><canvas id="dailyChart"></canvas></div>
     </div>
-
     <div class="card card-lift rounded-xl p-6 reveal">
       <div class="flex items-center justify-between mb-5">
-        <div>
-          <h3 class="font-semibold text-sm text-primary">Distribusi Win/Loss</h3>
-          <p class="text-xs text-secondary mt-0.5">Rasio trade</p>
-        </div>
+        <div><h3 class="font-semibold text-sm text-primary">Distribusi Win/Loss</h3><p class="text-xs text-secondary mt-0.5">Rasio trade</p></div>
         <i class="fas fa-chart-pie text-muted text-sm"></i>
       </div>
       <div class="chart-container"><canvas id="winlossChart"></canvas></div>
     </div>
-
     <div class="card card-lift rounded-xl p-6 reveal">
       <div class="flex items-center justify-between mb-5">
-        <div>
-          <h3 class="font-semibold text-sm text-primary">Performa per Instrumen</h3>
-          <p class="text-xs text-secondary mt-0.5">P&L berdasarkan simbol</p>
-        </div>
+        <div><h3 class="font-semibold text-sm text-primary">Performa per Instrumen</h3><p class="text-xs text-secondary mt-0.5">P&L berdasarkan simbol</p></div>
         <i class="fas fa-chart-bar text-muted text-sm"></i>
       </div>
       <div class="chart-container"><canvas id="symbolChart"></canvas></div>
@@ -456,29 +299,20 @@
   <section class="grid grid-cols-1 lg:grid-cols-3 gap-4">
     <div class="card card-lift rounded-xl p-6 lg:col-span-2 reveal">
       <div class="flex items-center justify-between mb-5">
-        <div>
-          <h3 class="font-semibold text-sm text-primary">Performa Bulanan</h3>
-          <p class="text-xs text-secondary mt-0.5">P&L 6 bulan terakhir</p>
-        </div>
+        <div><h3 class="font-semibold text-sm text-primary">Performa Bulanan</h3><p class="text-xs text-secondary mt-0.5">P&L 6 bulan terakhir</p></div>
         <i class="fas fa-calendar text-muted text-sm"></i>
       </div>
       <div class="chart-container"><canvas id="monthlyChart"></canvas></div>
     </div>
     <div class="card card-lift rounded-xl p-6 reveal">
-      <div class="mb-5">
-        <h3 class="font-semibold text-sm text-primary">Strategi</h3>
-        <p class="text-xs text-secondary mt-0.5">Win rate per strategi</p>
-      </div>
+      <div class="mb-5"><h3 class="font-semibold text-sm text-primary">Strategi</h3><p class="text-xs text-secondary mt-0.5">Win rate per strategi</p></div>
       <div class="chart-container"><canvas id="strategyChart"></canvas></div>
     </div>
   </section>
 
-  <footer class="text-center text-xs text-muted py-6">
-    <p>TradeLog © 2026 · Data tersimpan di Google Sheets Anda</p>
-  </footer>
+  <footer class="text-center text-xs text-muted py-6"><p>TradeLog © 2026 · Data tersimpan di Google Sheets Anda</p></footer>
 </main>
 
-<!-- TOAST CONTAINER -->
 <div id="toastContainer" class="toast-container"></div>
 
 <!-- SETTINGS MODAL -->
@@ -491,21 +325,15 @@
       </h3>
       <button type="button" onclick="closeSettings()" class="btn-icon w-8 h-8 rounded-lg flex items-center justify-center"><i class="fas fa-times text-sm"></i></button>
     </div>
-
     <div class="space-y-4">
-      <!-- Connection Status -->
       <div class="p-4 rounded-xl" style="background: var(--input-bg);">
         <div class="flex items-center justify-between mb-2">
           <span class="text-xs font-medium text-secondary">Status Koneksi</span>
-          <span id="settingsStatus" class="sync-status disconnected">
-            <i class="fas fa-circle text-[6px]"></i>
-            <span>Belum terhubung</span>
-          </span>
+          <span id="settingsStatus" class="sync-status disconnected"><i class="fas fa-circle text-[6px]"></i><span>Belum terhubung</span></span>
         </div>
-        <p class="text-[11px] text-muted">Data Anda akan tersimpan otomatis di Google Sheets pribadi Anda</p>
+        <p class="text-[11px] text-muted">Data akan tersimpan otomatis di Google Sheets pribadi Anda</p>
       </div>
 
-      <!-- URL Input -->
       <div>
         <label class="text-xs text-secondary font-medium flex items-center gap-1.5 mb-1.5">
           <i class="fas fa-link text-emerald-500"></i> URL Web App Google Apps Script
@@ -514,9 +342,8 @@
         <p class="text-[11px] text-muted mt-1.5">Salin URL setelah deploy Apps Script sebagai Web App</p>
       </div>
 
-      <!-- Action Buttons -->
       <div class="flex gap-2">
-        <button type="button" onclick="testConnection()" class="btn-secondary flex-1 px-4 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-2">
+        <button type="button" onclick="testConnection()" id="testConnBtn" class="btn-secondary flex-1 px-4 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-2">
           <i class="fas fa-plug text-xs"></i> Test Koneksi
         </button>
         <button type="button" onclick="saveSettings()" class="btn-primary flex-1 px-4 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-2">
@@ -524,7 +351,6 @@
         </button>
       </div>
 
-      <!-- Setup Guide -->
       <div class="pt-3" style="border-top: 1px solid var(--border);">
         <button type="button" onclick="toggleSetupGuide()" class="flex items-center justify-between w-full text-left">
           <span class="text-sm font-semibold text-primary flex items-center gap-2">
@@ -533,57 +359,83 @@
           <i id="setupGuideIcon" class="fas fa-chevron-down text-muted text-xs transition-transform"></i>
         </button>
         <div id="setupGuide" class="hidden mt-4 space-y-3">
+          <div class="alert-box alert-info">
+            <i class="fas fa-circle-info mt-0.5"></i>
+            <div><b>PENTING:</b> Error "Failed to fetch" biasanya disebabkan oleh URL yang salah, Apps Script belum di-deploy ulang setelah edit, atau izin akses belum "Anyone". Pastikan Anda mengikuti semua langkah di bawah dengan benar.</div>
+          </div>
           <div class="setup-step">
             <span class="setup-step-num">1</span>
-            <span class="text-sm font-medium text-primary">Buat Google Sheet baru</span>
-            <p class="text-xs text-secondary mt-1 ml-7">Buka <a href="https://sheets.google.com" target="_blank" class="text-emerald-500 underline">sheets.google.com</a> dan buat spreadsheet kosong</p>
+            <span class="text-sm font-medium text-primary">Buka Google Sheet Anda</span>
+            <p class="text-xs text-secondary mt-1 ml-7">Buka <a href="https://sheets.google.com" target="_blank" class="text-emerald-500 underline">sheets.google.com</a> dan buka spreadsheet yang ingin dipakai</p>
           </div>
           <div class="setup-step">
             <span class="setup-step-num">2</span>
             <span class="text-sm font-medium text-primary">Buka Apps Script</span>
-            <p class="text-xs text-secondary mt-1 ml-7">Di menu Sheet, klik <b>Extensions → Apps Script</b></p>
+            <p class="text-xs text-secondary mt-1 ml-7">Menu <b>Extensions → Apps Script</b>. Hapus semua kode default.</p>
           </div>
           <div class="setup-step">
             <span class="setup-step-num">3</span>
-            <span class="text-sm font-medium text-primary">Paste kode berikut</span>
-            <p class="text-xs text-secondary mt-1 ml-7 mb-2">Hapus semua kode default, lalu paste kode di bawah:</p>
+            <span class="text-sm font-medium text-primary">Paste kode berikut (VERSI FIX)</span>
+            <p class="text-xs text-secondary mt-1 ml-7 mb-2">Copy kode di bawah, paste ke Apps Script editor:</p>
             <div class="ml-7">
-              <div class="code-block" id="appsScriptCode">function doGet(e) {
-  return handleRequest(e);
+              <div class="code-block" id="appsScriptCode">// ===== TradeLog Apps Script v2 (FIX) =====
+// Paste kode ini ke Apps Script, lalu Deploy → New deployment → Web app
+// Execute as: Me | Who has access: Anyone
+
+function doGet(e) {
+  return handleRequest(e, 'GET');
 }
 
 function doPost(e) {
-  return handleRequest(e);
+  return handleRequest(e, 'POST');
 }
 
-function handleRequest(e) {
-  const action = e.parameter.action;
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  let sheet = ss.getSheetByName('Trades');
+function handleRequest(e, method) {
+  try {
+    const action = e.parameter.action;
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let sheet = ss.getSheetByName('Trades');
 
-  if (!sheet) {
-    sheet = ss.insertSheet('Trades');
-    sheet.appendRow(['id','date','time','symbol','side','strategy','entry','exit','size','risk','pnl','notes','image','createdAt']);
-    sheet.getRange(1,1,1,14).setFontWeight('bold').setBackground('#10b981').setFontColor('#ffffff');
-    sheet.setFrozenRows(1);
+    if (!sheet) {
+      sheet = ss.insertSheet('Trades');
+      sheet.appendRow(['id','date','time','symbol','side','strategy','entry','exit','size','risk','pnl','notes','image','createdAt']);
+      sheet.getRange(1,1,1,14).setFontWeight('bold').setBackground('#10b981').setFontColor('#ffffff');
+      sheet.setFrozenRows(1);
+    }
+
+    let result;
+    if (action === 'getAll') {
+      result = getAll(sheet);
+    } else if (action === 'ping') {
+      result = { success: true, message: 'OK', time: new Date().toISOString() };
+    } else {
+      // POST actions - read body
+      let bodyData = {};
+      if (method === 'POST' && e.postData) {
+        try { bodyData = JSON.parse(e.postData.contents); } catch(err) {}
+      } else if (e.parameter.data) {
+        try { bodyData = JSON.parse(e.parameter.data); } catch(err) {}
+      }
+
+      if (action === 'create') {
+        result = create(sheet, bodyData);
+      } else if (action === 'update') {
+        result = update(sheet, bodyData);
+      } else if (action === 'delete') {
+        result = remove(sheet, bodyData.id || e.parameter.id);
+      } else {
+        result = { success: false, error: 'Unknown action: ' + action };
+      }
+    }
+
+    return ContentService
+      .createTextOutput(JSON.stringify(result))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: false, error: err.message }))
+      .setMimeType(ContentService.MimeType.JSON);
   }
-
-  let result;
-  if (action === 'getAll') {
-    result = getAll(sheet);
-  } else if (action === 'create') {
-    result = create(sheet, e.parameter.data);
-  } else if (action === 'update') {
-    result = update(sheet, e.parameter.data);
-  } else if (action === 'delete') {
-    result = remove(sheet, e.parameter.id);
-  } else {
-    result = { success: false, error: 'Unknown action' };
-  }
-
-  return ContentService
-    .createTextOutput(JSON.stringify(result))
-    .setMimeType(ContentService.MimeType.JSON);
 }
 
 function getAll(sheet) {
@@ -593,51 +445,49 @@ function getAll(sheet) {
   const rows = data.slice(1).map(row => {
     const obj = {};
     headers.forEach((h, i) => obj[h] = row[i]);
-    // Parse numeric fields
     ['entry','exit','size','risk','pnl'].forEach(k => {
-      if (obj[k] !== '' && obj[k] !== undefined) obj[k] = Number(obj[k]);
+      if (obj[k] !== '' && obj[k] !== undefined && obj[k] !== null) {
+        obj[k] = Number(obj[k]);
+      }
     });
     return obj;
   });
   return { success: true, data: rows };
 }
 
-function create(sheet, dataStr) {
+function create(sheet, data) {
   try {
-    const data = JSON.parse(dataStr);
-    data.createdAt = new Date().toISOString();
-    const row = [
-      data.id, data.date, data.time, data.symbol, data.side,
-      data.strategy, data.entry, data.exit, data.size, data.risk,
-      data.pnl, data.notes, data.image || '', data.createdAt
-    ];
-    sheet.appendRow(row);
-    return { success: true };
+    if (!data || !data.id) return { success: false, error: 'Missing id' };
+    data.createdAt = data.createdAt || new Date().toISOString();
+    sheet.appendRow([
+      data.id, data.date, data.time || '', data.symbol, data.side,
+      data.strategy || '', data.entry, data.exit, data.size, data.risk || 0,
+      data.pnl, data.notes || '', data.image || '', data.createdAt
+    ]);
+    return { success: true, id: data.id };
   } catch(err) {
     return { success: false, error: err.message };
   }
 }
 
-function update(sheet, dataStr) {
+function update(sheet, data) {
   try {
-    const data = JSON.parse(dataStr);
+    if (!data || !data.id) return { success: false, error: 'Missing id' };
     const allData = sheet.getDataRange().getValues();
     const headers = allData[0];
     const idCol = headers.indexOf('id');
     let rowIndex = -1;
     for (let i = 1; i < allData.length; i++) {
       if (String(allData[i][idCol]) === String(data.id)) {
-        rowIndex = i + 1;
-        break;
+        rowIndex = i + 1; break;
       }
     }
-    if (rowIndex === -1) return { success: false, error: 'Not found' };
-    const row = [
-      data.id, data.date, data.time, data.symbol, data.side,
-      data.strategy, data.entry, data.exit, data.size, data.risk,
-      data.pnl, data.notes, data.image || '', data.createdAt || new Date().toISOString()
-    ];
-    sheet.getRange(rowIndex, 1, 1, row.length).setValues([row]);
+    if (rowIndex === -1) return { success: false, error: 'Trade not found' };
+    sheet.getRange(rowIndex, 1, 1, 14).setValues([[
+      data.id, data.date, data.time || '', data.symbol, data.side,
+      data.strategy || '', data.entry, data.exit, data.size, data.risk || 0,
+      data.pnl, data.notes || '', data.image || '', data.createdAt || new Date().toISOString()
+    ]]);
     return { success: true };
   } catch(err) {
     return { success: false, error: err.message };
@@ -646,17 +496,17 @@ function update(sheet, dataStr) {
 
 function remove(sheet, id) {
   try {
+    if (!id) return { success: false, error: 'Missing id' };
     const allData = sheet.getDataRange().getValues();
     const headers = allData[0];
     const idCol = headers.indexOf('id');
     let rowIndex = -1;
     for (let i = 1; i < allData.length; i++) {
       if (String(allData[i][idCol]) === String(id)) {
-        rowIndex = i + 1;
-        break;
+        rowIndex = i + 1; break;
       }
     }
-    if (rowIndex === -1) return { success: false, error: 'Not found' };
+    if (rowIndex === -1) return { success: false, error: 'Trade not found' };
     sheet.deleteRow(rowIndex);
     return { success: true };
   } catch(err) {
@@ -671,17 +521,40 @@ function remove(sheet, id) {
           <div class="setup-step">
             <span class="setup-step-num">4</span>
             <span class="text-sm font-medium text-primary">Deploy sebagai Web App</span>
-            <p class="text-xs text-secondary mt-1 ml-7">Klik <b>Deploy → New deployment → Web app</b>. Set "Execute as: Me" dan "Who has access: Anyone". Klik Deploy dan salin URL.</p>
+            <p class="text-xs text-secondary mt-1 ml-7">Klik <b>Deploy → New deployment</b>. Pilih type <b>Web app</b>. Set:</p>
+            <ul class="text-xs text-secondary mt-1 ml-7 list-disc pl-4 space-y-0.5">
+              <li><b>Execute as:</b> Me (email Anda)</li>
+              <li><b>Who has access:</b> <span class="text-red-500 font-semibold">Anyone</span> (WAJIB!)</li>
+            </ul>
+            <p class="text-xs text-secondary mt-2 ml-7">Klik <b>Deploy</b>, authorize jika diminta, lalu salin URL Web app.</p>
           </div>
           <div class="setup-step">
             <span class="setup-step-num">5</span>
-            <span class="text-sm font-medium text-primary">Paste URL di atas</span>
-            <p class="text-xs text-secondary mt-1 ml-7">Tempel URL yang Anda dapatkan ke kolom URL di atas, lalu klik "Test Koneksi"</p>
+            <span class="text-sm font-medium text-primary">Test URL di browser</span>
+            <p class="text-xs text-secondary mt-1 ml-7">Buka URL di tab baru. Harus muncul <code class="bg-soft px-1 rounded">{"success":true,"data":[]}</code>. Jika error, berarti deployment gagal.</p>
+          </div>
+          <div class="setup-step">
+            <span class="setup-step-num">6</span>
+            <span class="text-sm font-medium text-primary">Paste URL di atas → Test Koneksi</span>
+            <p class="text-xs text-secondary mt-1 ml-7">Tempel URL, klik "Test Koneksi". Jika berhasil, klik "Simpan".</p>
+          </div>
+
+          <div class="alert-box alert-warning">
+            <i class="fas fa-triangle-exclamation mt-0.5"></i>
+            <div>
+              <b>Troubleshooting "Failed to fetch":</b>
+              <ul class="list-disc pl-4 mt-1 space-y-0.5">
+                <li>Pastikan URL dimulai dengan <code>https://script.google.com/macros/s/</code></li>
+                <li>Setelah edit kode di Apps Script, WAJIB klik <b>Deploy → Manage deployments → Edit (pensil) → Version: New version → Deploy</b></li>
+                <li>Pastikan "Who has access" = <b>Anyone</b> (bukan "Anyone with Google account")</li>
+                <li>Coba buka URL langsung di browser dulu untuk verifikasi</li>
+                <li>Beberapa browser extension (adblocker, privacy) bisa memblokir request</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Danger Zone -->
       <div class="pt-3" style="border-top: 1px solid var(--border);">
         <p class="text-xs font-semibold text-secondary mb-2 uppercase tracking-wider">Zona Bahaya</p>
         <div class="flex gap-2 flex-wrap">
@@ -714,70 +587,35 @@ function remove(sheet, id) {
     <form id="tradeForm" class="space-y-3">
       <input type="hidden" id="f-id">
       <div class="grid grid-cols-2 gap-3">
-        <div>
-          <label class="text-xs text-secondary font-medium">Tanggal</label>
-          <input type="date" id="f-date" required class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm">
-        </div>
-        <div>
-          <label class="text-xs text-secondary font-medium">Jam Entry</label>
-          <input type="time" id="f-time" class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm">
-        </div>
+        <div><label class="text-xs text-secondary font-medium">Tanggal</label><input type="date" id="f-date" required class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm"></div>
+        <div><label class="text-xs text-secondary font-medium">Jam Entry</label><input type="time" id="f-time" class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm"></div>
       </div>
       <div class="grid grid-cols-2 gap-3">
-        <div>
-          <label class="text-xs text-secondary font-medium">Simbol</label>
-          <input type="text" id="f-symbol" placeholder="BTCUSD" required class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm">
-        </div>
-        <div>
-          <label class="text-xs text-secondary font-medium">Arah</label>
-          <select id="f-side" class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm">
-            <option value="long">Long</option>
-            <option value="short">Short</option>
-          </select>
+        <div><label class="text-xs text-secondary font-medium">Simbol</label><input type="text" id="f-symbol" placeholder="BTCUSD" required class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm"></div>
+        <div><label class="text-xs text-secondary font-medium">Arah</label>
+          <select id="f-side" class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm"><option value="long">Long</option><option value="short">Short</option></select>
         </div>
       </div>
       <div class="grid grid-cols-3 gap-3">
-        <div>
-          <label class="text-xs text-secondary font-medium">Strategi</label>
-          <input type="text" id="f-strategy" placeholder="Breakout" class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm">
-        </div>
-        <div>
-          <label class="text-xs text-secondary font-medium">Size</label>
-          <input type="number" id="f-size" step="0.01" placeholder="1.0" class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm">
-        </div>
-        <div>
-          <label class="text-xs text-secondary font-medium">Risk %</label>
-          <input type="number" id="f-risk" step="0.1" placeholder="1.0" class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm">
-        </div>
+        <div><label class="text-xs text-secondary font-medium">Strategi</label><input type="text" id="f-strategy" placeholder="Breakout" class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm"></div>
+        <div><label class="text-xs text-secondary font-medium">Size</label><input type="number" id="f-size" step="0.01" placeholder="1.0" class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm"></div>
+        <div><label class="text-xs text-secondary font-medium">Risk %</label><input type="number" id="f-risk" step="0.1" placeholder="1.0" class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm"></div>
       </div>
       <div class="grid grid-cols-2 gap-3">
-        <div>
-          <label class="text-xs text-secondary font-medium">Entry</label>
-          <input type="number" id="f-entry" step="0.0001" required class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm">
-        </div>
-        <div>
-          <label class="text-xs text-secondary font-medium">Exit</label>
-          <input type="number" id="f-exit" step="0.0001" required class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm">
-        </div>
+        <div><label class="text-xs text-secondary font-medium">Entry</label><input type="number" id="f-entry" step="0.0001" required class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm"></div>
+        <div><label class="text-xs text-secondary font-medium">Exit</label><input type="number" id="f-exit" step="0.0001" required class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm"></div>
       </div>
+      <div><label class="text-xs text-secondary font-medium">Catatan</label><textarea id="f-notes" rows="2" placeholder="Alasan entry, emosi, pelajaran..." class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm resize-none"></textarea></div>
       <div>
-        <label class="text-xs text-secondary font-medium">Catatan</label>
-        <textarea id="f-notes" rows="2" placeholder="Alasan entry, emosi, pelajaran..." class="w-full mt-1 bg-input rounded-lg px-3 py-2 text-sm resize-none"></textarea>
-      </div>
-      <div>
-        <label class="text-xs text-secondary font-medium flex items-center gap-1.5 mb-1.5">
-          <i class="fas fa-camera text-emerald-500"></i> Screenshot Trading
-        </label>
+        <label class="text-xs text-secondary font-medium flex items-center gap-1.5 mb-1.5"><i class="fas fa-camera text-emerald-500"></i> Screenshot Trading</label>
         <div class="upload-area" id="uploadArea" onclick="document.getElementById('f-image').click()">
           <div id="uploadPlaceholder" class="flex flex-col items-center justify-center py-2 text-center">
             <i class="fas fa-cloud-arrow-up text-2xl text-muted mb-2"></i>
             <p class="text-sm font-medium text-primary">Klik atau drag foto kesini</p>
-            <p class="text-xs text-muted mt-0.5">JPG, PNG, WEBP (max 2MB)</p>
+            <p class="text-xs text-muted mt-0.5">JPG, PNG, WEBP (max 1MB, akan dikompres)</p>
           </div>
           <img id="uploadPreview" class="thumbnail-preview hidden" alt="Preview">
-          <button type="button" id="removeImgBtn" class="remove-img-btn hidden" onclick="removeImage(event)">
-            <i class="fas fa-times text-xs"></i>
-          </button>
+          <button type="button" id="removeImgBtn" class="remove-img-btn hidden" onclick="removeImage(event)"><i class="fas fa-times text-xs"></i></button>
         </div>
         <input type="file" id="f-image" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
       </div>
@@ -796,9 +634,7 @@ function remove(sheet, id) {
   <div class="modal-overlay-bg" onclick="closeDetail()"></div>
   <div class="modal-panel modal-panel-lg card rounded-2xl p-6">
     <div class="flex items-center justify-between mb-5">
-      <h3 class="font-semibold text-primary flex items-center gap-2">
-        <i class="fas fa-magnifying-glass-chart text-emerald-500"></i> Detail Trade
-      </h3>
+      <h3 class="font-semibold text-primary flex items-center gap-2"><i class="fas fa-magnifying-glass-chart text-emerald-500"></i> Detail Trade</h3>
       <div class="flex items-center gap-2">
         <button type="button" onclick="editFromDetail()" class="btn-icon w-8 h-8 rounded-lg flex items-center justify-center" title="Edit"><i class="fas fa-pen-to-square text-sm"></i></button>
         <button type="button" onclick="deleteFromDetail()" class="btn-icon w-8 h-8 rounded-lg flex items-center justify-center" title="Hapus" style="color:#ef4444;"><i class="fas fa-trash text-sm"></i></button>
@@ -809,9 +645,7 @@ function remove(sheet, id) {
   </div>
 </div>
 
-<div id="zoomOverlay" class="zoom-overlay" onclick="closeZoom()">
-  <img id="zoomImg" src="" alt="Zoom">
-</div>
+<div id="zoomOverlay" class="zoom-overlay" onclick="closeZoom()"><img id="zoomImg" src="" alt="Zoom"></div>
 
 <script>
 const INITIAL_BALANCE = 10000;
@@ -826,7 +660,7 @@ let sheetUrl = '';
 let isSyncing = false;
 
 // ===== TOAST =====
-function showToast(message, type = 'success', duration = 3000) {
+function showToast(message, type = 'success', duration = 3500) {
   const container = document.getElementById('toastContainer');
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
@@ -834,47 +668,81 @@ function showToast(message, type = 'success', duration = 3000) {
   const colorMap = { success: '#10b981', error: '#ef4444', warning: '#d97706', info: '#3b82f6' };
   toast.innerHTML = `
     <i class="fas ${iconMap[type]} text-lg" style="color: ${colorMap[type]}; margin-top: 2px;"></i>
-    <div class="flex-1">
-      <p class="text-sm text-primary">${message}</p>
-    </div>
-    <button onclick="this.parentElement.classList.add('removing'); setTimeout(() => this.parentElement.remove(), 300)" class="text-muted hover:text-primary">
-      <i class="fas fa-times text-xs"></i>
-    </button>
+    <div class="flex-1"><p class="text-sm text-primary">${message}</p></div>
+    <button onclick="this.parentElement.classList.add('removing'); setTimeout(() => this.parentElement.remove(), 300)" class="text-muted hover:text-primary"><i class="fas fa-times text-xs"></i></button>
   `;
   container.appendChild(toast);
-  setTimeout(() => {
-    toast.classList.add('removing');
-    setTimeout(() => toast.remove(), 300);
-  }, duration);
+  setTimeout(() => { toast.classList.add('removing'); setTimeout(() => toast.remove(), 300); }, duration);
 }
 
-// ===== GOOGLE SHEETS API =====
-async function callSheet(action, params = {}) {
+// ===== GOOGLE SHEETS API (FIXED) =====
+// Google Apps Script Web App melakukan redirect. Kita harus:
+// 1. Gunakan redirect: 'follow' agar browser follow redirect otomatis
+// 2. Untuk write (create/update/delete), pakai POST dengan Content-Type: text/plain
+//    agar tidak trigger CORS preflight (simple request)
+// 3. Untuk read (getAll), pakai GET biasa
+
+async function callSheet(action, bodyData = null, retries = 2) {
   if (!sheetUrl) throw new Error('URL Google Sheets belum diatur');
-  const url = new URL(sheetUrl);
-  url.searchParams.set('action', action);
-  Object.keys(params).forEach(k => url.searchParams.set(k, params[k]));
 
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 15000);
+  // Clean URL - remove any existing query params
+  const baseUrl = sheetUrl.split('?')[0];
+  const url = `${baseUrl}?action=${encodeURIComponent(action)}`;
 
-  try {
-    const res = await fetch(url.toString(), {
-      method: 'GET',
-      redirect: 'follow'
-    });
-    clearTimeout(timeout);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    return await res.json();
-  } catch (err) {
-    clearTimeout(timeout);
-    throw err;
+  const options = {
+    method: bodyData ? 'POST' : 'GET',
+    redirect: 'follow',
+    cache: 'no-store',
+  };
+
+  if (bodyData) {
+    // Content-Type: text/plain = "simple request" = no CORS preflight
+    // Ini menghindari error "Failed to fetch" karena CORS
+    options.headers = { 'Content-Type': 'text/plain;charset=utf-8' };
+    options.body = JSON.stringify(bodyData);
   }
+
+  let lastError = null;
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 30000); // 30s timeout
+      options.signal = controller.signal;
+
+      const res = await fetch(url, options);
+      clearTimeout(timeout);
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      }
+
+      const text = await res.text();
+      try {
+        return JSON.parse(text);
+      } catch (parseErr) {
+        // Kadang Google Apps Script return HTML error page
+        if (text.includes('<!DOCTYPE') || text.includes('<html')) {
+          throw new Error('Response bukan JSON. Cek deployment Apps Script Anda.');
+        }
+        throw new Error('Response tidak valid: ' + text.slice(0, 100));
+      }
+    } catch (err) {
+      lastError = err;
+      if (err.name === 'AbortError') {
+        lastError = new Error('Request timeout (30s). Koneksi lambat atau server tidak merespon.');
+      }
+      // Wait before retry (exponential backoff)
+      if (attempt < retries) {
+        await new Promise(r => setTimeout(r, 1000 * (attempt + 1)));
+      }
+    }
+  }
+  throw lastError;
 }
 
 async function syncFromSheet() {
   if (!sheetUrl) {
-    showToast('URL Google Sheets belum diatur. Buka Pengaturan untuk setup.', 'warning');
+    showToast('URL Google Sheets belum diatur. Buka Pengaturan (ikon ⚙️).', 'warning', 5000);
     openSettings();
     return;
   }
@@ -886,19 +754,26 @@ async function syncFromSheet() {
 
   try {
     const result = await callSheet('getAll');
-    if (result.success) {
+    if (result && result.success) {
       trades = result.data || [];
       saveLocal();
       renderAll();
       updateSyncUI('connected', 'Terhubung · ' + trades.length + ' trade');
       showToast('Berhasil sinkron ' + trades.length + ' trade dari Google Sheets', 'success');
     } else {
-      throw new Error(result.error || 'Gagal sync');
+      throw new Error((result && result.error) || 'Response tidak valid');
     }
   } catch (err) {
-    console.error(err);
+    console.error('Sync error:', err);
     updateSyncUI('disconnected', 'Gagal terhubung');
-    showToast('Gagal sinkron: ' + err.message, 'error', 5000);
+    const msg = err.message || String(err);
+    let hint = '';
+    if (msg.includes('Failed to fetch')) {
+      hint = ' • Cek URL, deployment, dan izin "Anyone"';
+    } else if (msg.includes('timeout')) {
+      hint = ' • Koneksi lambat, coba lagi';
+    }
+    showToast('Gagal sync: ' + msg + hint, 'error', 6000);
   } finally {
     isSyncing = false;
     if (syncIcon) syncIcon.classList.remove('spinner');
@@ -906,29 +781,35 @@ async function syncFromSheet() {
 }
 
 async function createTradeInSheet(trade) {
-  if (!sheetUrl) { saveLocal(); return; }
+  if (!sheetUrl) { saveLocal(); return { ok: true, offline: true }; }
   try {
-    await callSheet('create', { data: JSON.stringify(trade) });
+    const result = await callSheet('create', trade);
+    if (result && result.success) return { ok: true };
+    throw new Error((result && result.error) || 'Gagal create');
   } catch (err) {
-    showToast('Gagal simpan ke Sheets: ' + err.message + '. Data tersimpan lokal.', 'error', 5000);
+    return { ok: false, error: err.message };
   }
 }
 
 async function updateTradeInSheet(trade) {
-  if (!sheetUrl) { saveLocal(); return; }
+  if (!sheetUrl) { saveLocal(); return { ok: true, offline: true }; }
   try {
-    await callSheet('update', { data: JSON.stringify(trade) });
+    const result = await callSheet('update', trade);
+    if (result && result.success) return { ok: true };
+    throw new Error((result && result.error) || 'Gagal update');
   } catch (err) {
-    showToast('Gagal update di Sheets: ' + err.message, 'error', 5000);
+    return { ok: false, error: err.message };
   }
 }
 
 async function deleteTradeInSheet(id) {
-  if (!sheetUrl) { saveLocal(); return; }
+  if (!sheetUrl) { saveLocal(); return { ok: true, offline: true }; }
   try {
-    await callSheet('delete', { id: String(id) });
+    const result = await callSheet('delete', { id: String(id) });
+    if (result && result.success) return { ok: true };
+    throw new Error((result && result.error) || 'Gagal delete');
   } catch (err) {
-    showToast('Gagal hapus di Sheets: ' + err.message, 'error', 5000);
+    return { ok: false, error: err.message };
   }
 }
 
@@ -942,7 +823,8 @@ function updateSyncUI(status, text) {
   }
   if (settingsStatus) {
     settingsStatus.className = 'sync-status ' + status;
-    settingsStatus.querySelector('span').textContent = text;
+    const span = settingsStatus.querySelector('span');
+    if (span) span.textContent = text;
   }
 }
 
@@ -975,11 +857,10 @@ try {
 
 // ===== SETTINGS =====
 function openSettings() {
-  const modal = document.getElementById('settingsModal');
   const urlInput = document.getElementById('sheetUrl');
   if (urlInput) urlInput.value = sheetUrl || '';
   updateSettingsStatus();
-  modal.classList.add('open');
+  document.getElementById('settingsModal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 function closeSettings() {
@@ -1002,29 +883,41 @@ function updateSettingsStatus() {
 async function testConnection() {
   const urlInput = document.getElementById('sheetUrl');
   const url = urlInput ? urlInput.value.trim() : '';
-  if (!url) {
-    showToast('Masukkan URL Apps Script terlebih dahulu', 'warning');
+  if (!url) { showToast('Masukkan URL Apps Script terlebih dahulu', 'warning'); return; }
+  if (!url.includes('script.google.com/macros')) {
+    showToast('URL tidak valid. Harus URL Google Apps Script Web App (format: https://script.google.com/macros/s/...)', 'error', 5000);
     return;
   }
-  if (!url.includes('script.google.com')) {
-    showToast('URL tidak valid. Harus URL Google Apps Script Web App', 'error');
-    return;
-  }
+
+  const btn = document.getElementById('testConnBtn');
+  const oldHtml = btn.innerHTML;
+  btn.innerHTML = '<i class="fas fa-spinner spinner text-xs"></i> Testing...';
+  btn.disabled = true;
+
   const oldUrl = sheetUrl;
   sheetUrl = url;
-  showToast('Menguji koneksi...', 'info', 2000);
+
   try {
-    const result = await callSheet('getAll');
-    if (result.success) {
-      showToast('Koneksi berhasil! Ditemukan ' + (result.data?.length || 0) + ' trade.', 'success');
+    const result = await callSheet('ping');
+    if (result && result.success) {
+      showToast('✓ Koneksi berhasil! Apps Script merespon dengan baik.', 'success', 4000);
       updateSettingsStatus();
     } else {
-      throw new Error(result.error || 'Response tidak valid');
+      throw new Error((result && result.error) || 'Response tidak valid');
     }
   } catch (err) {
     sheetUrl = oldUrl;
-    showToast('Koneksi gagal: ' + err.message, 'error', 5000);
+    const msg = err.message || String(err);
+    let hint = '';
+    if (msg.includes('Failed to fetch')) {
+      hint = '\n\nKemungkinan penyebab:\n• URL salah atau typo\n• Apps Script belum di-deploy\n• Izin akses bukan "Anyone"\n• Browser extension memblokir\n\nCoba buka URL langsung di tab baru untuk verifikasi.';
+    }
+    showToast('✗ Koneksi gagal: ' + msg, 'error', 7000);
+    if (hint) console.error(hint);
     updateSettingsStatus();
+  } finally {
+    btn.innerHTML = oldHtml;
+    btn.disabled = false;
   }
 }
 
@@ -1040,7 +933,7 @@ function saveSettings() {
     setTimeout(syncFromSheet, 500);
   } else {
     updateSyncUI('disconnected', 'Belum terhubung');
-    showToast('Pengaturan tersimpan (mode offline)', 'info');
+    showToast('Pengaturan tersimpan (mode offline - data hanya di browser ini)', 'info', 4000);
     closeSettings();
   }
 }
@@ -1048,21 +941,21 @@ function saveSettings() {
 function toggleSetupGuide() {
   const guide = document.getElementById('setupGuide');
   const icon = document.getElementById('setupGuideIcon');
-  if (guide.classList.contains('hidden')) {
-    guide.classList.remove('hidden');
-    if (icon) icon.style.transform = 'rotate(180deg)';
-  } else {
-    guide.classList.add('hidden');
-    if (icon) icon.style.transform = '';
-  }
+  guide.classList.toggle('hidden');
+  if (icon) icon.style.transform = guide.classList.contains('hidden') ? '' : 'rotate(180deg)';
 }
 
 function copyAppsScriptCode() {
   const code = document.getElementById('appsScriptCode').textContent;
   navigator.clipboard.writeText(code).then(() => {
-    showToast('Kode berhasil disalin ke clipboard', 'success');
+    showToast('Kode berhasil disalin. Paste ke Apps Script editor.', 'success');
   }).catch(() => {
-    showToast('Gagal menyalin. Silakan copy manual.', 'error');
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = code; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Kode berhasil disalin', 'success');
   });
 }
 
@@ -1071,11 +964,9 @@ function exportData() {
   const blob = new Blob([data], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url;
-  a.download = 'tradelog-backup-' + new Date().toISOString().slice(0,10) + '.json';
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('Data berhasil diexport', 'success');
+  a.href = url; a.download = 'tradelog-backup-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click(); URL.revokeObjectURL(url);
+  showToast('Data berhasil diexport (' + trades.length + ' trade)', 'success');
 }
 
 function importData(event) {
@@ -1089,7 +980,6 @@ function importData(event) {
       if (!confirm(`Import ${imported.length} trade? Data saat ini akan diganti.`)) return;
       trades = imported;
       saveLocal();
-      // Sync to sheet if connected
       if (sheetUrl) {
         showToast('Mengupload ke Google Sheets...', 'info', 3000);
         for (const t of trades) {
@@ -1113,16 +1003,12 @@ function clearAllData() {
   if (!confirm('Yakin? Semua trade akan dihapus permanen.')) return;
   trades = [];
   saveLocal();
-  if (sheetUrl) {
-    showToast('Menghapus data dari Google Sheets...', 'info', 3000);
-    // We'd need to delete each row - simplified: just clear local and re-sync
-  }
   renderAll();
-  showToast('Semua data telah dihapus', 'success');
+  showToast('Semua data lokal telah dihapus', 'success');
 }
 
 // ===== IMAGE =====
-function compressImage(file, maxWidth = 800, quality = 0.7) {
+function compressImage(file, maxWidth = 600, quality = 0.6) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -1133,7 +1019,17 @@ function compressImage(file, maxWidth = 800, quality = 0.7) {
         if (w > maxWidth) { h = (h * maxWidth) / w; w = maxWidth; }
         canvas.width = w; canvas.height = h;
         canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-        resolve(canvas.toDataURL('image/jpeg', quality));
+        const dataUrl = canvas.toDataURL('image/jpeg', quality);
+        // Check size - if still too big, compress more
+        if (dataUrl.length > 400000) { // ~300KB
+          const canvas2 = document.createElement('canvas');
+          const w2 = Math.floor(w * 0.7), h2 = Math.floor(h * 0.7);
+          canvas2.width = w2; canvas2.height = h2;
+          canvas2.getContext('2d').drawImage(img, 0, 0, w2, h2);
+          resolve(canvas2.toDataURL('image/jpeg', 0.5));
+        } else {
+          resolve(dataUrl);
+        }
       };
       img.onerror = reject;
       img.src = e.target.result;
@@ -1147,7 +1043,7 @@ async function handleImageUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
   if (file.size > 2 * 1024 * 1024) {
-    showToast('Ukuran file terlalu besar (max 2MB)', 'error');
+    showToast('Ukuran file terlalu besar (max 2MB sebelum kompresi)', 'error');
     event.target.value = '';
     return;
   }
@@ -1155,6 +1051,7 @@ async function handleImageUpload(event) {
     const compressed = await compressImage(file);
     currentImageData = compressed;
     showImagePreview(compressed);
+    showToast('Gambar berhasil dikompres', 'success', 2000);
   } catch (e) {
     showToast('Gagal memproses gambar', 'error');
   }
@@ -1194,13 +1091,13 @@ if (uploadArea) {
 
 // ===== LOCAL STORAGE =====
 function saveLocal() {
-  try { localStorage.setItem('tradelog_data_v7', JSON.stringify(trades)); } catch(e) {
+  try { localStorage.setItem('tradelog_data_v8', JSON.stringify(trades)); } catch(e) {
     showToast('Gagal simpan lokal: storage penuh', 'warning');
   }
 }
 function loadLocal() {
   try {
-    const saved = localStorage.getItem('tradelog_data_v7');
+    const saved = localStorage.getItem('tradelog_data_v8');
     if (saved) trades = JSON.parse(saved);
   } catch(e) { trades = []; }
 }
@@ -1365,7 +1262,7 @@ function renderTradeGrid() {
   const search = searchEl ? searchEl.value.toLowerCase() : '';
 
   let list = currentMonthKey ? getTradesForMonth(currentMonthKey) : [];
-  if (search) list = list.filter(t => t.symbol.toLowerCase().includes(search));
+  if (search) list = list.filter(t => t.symbol && t.symbol.toLowerCase().includes(search));
 
   list.sort((a,b) => {
     const aKey = (a.date || '') + (a.time || '');
@@ -1463,7 +1360,7 @@ function renderEquityChart() {
   const c = getChartColors();
   const rangeEl = document.getElementById('equity-range');
   const range = rangeEl ? rangeEl.value : 'all';
-  let data = [...trades].sort((a,b) => ((a.date||'')+(a.time||'')).localeCompare((b.date||'')+(b.time||'')));
+  let data = [...trades].filter(t => t.date).sort((a,b) => ((a.date)+(a.time||'')).localeCompare((b.date)+(b.time||'')));
   if (range !== 'all') {
     const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - parseInt(range));
     data = data.filter(t => new Date(t.date) >= cutoff);
@@ -1481,18 +1378,11 @@ function renderEquityChart() {
     type: 'line',
     data: {
       labels: points.map((_,i) => i === 0 ? 'Start' : data[i-1].date.slice(5)),
-      datasets: [{
-        label: 'Equity', data: points.map(p => p.y),
-        borderColor: '#10b981', backgroundColor: gradient,
-        fill: true, tension: 0.4, pointRadius: 0, pointHoverRadius: 5, borderWidth: 2
-      }]
+      datasets: [{ label: 'Equity', data: points.map(p => p.y), borderColor: '#10b981', backgroundColor: gradient, fill: true, tension: 0.4, pointRadius: 0, pointHoverRadius: 5, borderWidth: 2 }]
     },
     options: {
       ...chartAnimOpts,
-      plugins: { legend: { display: false },
-        tooltip: { backgroundColor: c.tooltipBg, titleColor: c.tooltipText, bodyColor: c.tooltipText, padding: 10, cornerRadius: 8,
-          callbacks: { label: ctx => '$' + ctx.parsed.y.toLocaleString('en-US',{maximumFractionDigits:0}) }}
-      },
+      plugins: { legend: { display: false }, tooltip: { backgroundColor: c.tooltipBg, titleColor: c.tooltipText, bodyColor: c.tooltipText, padding: 10, cornerRadius: 8, callbacks: { label: ctx => '$' + ctx.parsed.y.toLocaleString('en-US',{maximumFractionDigits:0}) }} },
       scales: {
         x: { grid: { display:false }, ticks: { maxTicksLimit: 6, color: c.text } },
         y: { grid: { color: c.grid }, ticks: { color: c.text, callback: v => '$'+v.toLocaleString() } }
@@ -1514,18 +1404,11 @@ function renderDailyChart() {
     type: 'bar',
     data: {
       labels: dates.map(d => d.slice(5)),
-      datasets: [{
-        label: 'P&L', data: dates.map(d => Math.round(byDate[d])),
-        backgroundColor: dates.map(d => byDate[d] >= 0 ? '#10b981' : '#ef4444'),
-        borderRadius: 6, barPercentage: 0.7
-      }]
+      datasets: [{ label: 'P&L', data: dates.map(d => Math.round(byDate[d])), backgroundColor: dates.map(d => byDate[d] >= 0 ? '#10b981' : '#ef4444'), borderRadius: 6, barPercentage: 0.7 }]
     },
     options: {
       ...chartAnimOpts,
-      plugins: { legend: { display: false },
-        tooltip: { backgroundColor: c.tooltipBg, titleColor: c.tooltipText, bodyColor: c.tooltipText, padding: 10, cornerRadius: 8,
-          callbacks: { label: ctx => '$' + ctx.parsed.y.toLocaleString() }}
-      },
+      plugins: { legend: { display: false }, tooltip: { backgroundColor: c.tooltipBg, titleColor: c.tooltipText, bodyColor: c.tooltipText, padding: 10, cornerRadius: 8, callbacks: { label: ctx => '$' + ctx.parsed.y.toLocaleString() }} },
       scales: {
         x: { grid: { display:false }, ticks: { maxTicksLimit: 8, color: c.text } },
         y: { grid: { color: c.grid }, ticks: { color: c.text, callback: v => '$'+v } }
@@ -1546,20 +1429,13 @@ function renderWinLossChart() {
     type: 'doughnut',
     data: {
       labels: ['Menang','Kalah'],
-      datasets: [{
-        data: [wins, losses],
-        backgroundColor: ['#10b981', '#ef4444'],
-        borderColor: isDarkMode ? '#141414' : '#ffffff',
-        borderWidth: 4, hoverOffset: 8
-      }]
+      datasets: [{ data: [wins, losses], backgroundColor: ['#10b981', '#ef4444'], borderColor: isDarkMode ? '#141414' : '#ffffff', borderWidth: 4, hoverOffset: 8 }]
     },
     options: {
-      ...chartAnimOpts,
-      cutout: '70%',
+      ...chartAnimOpts, cutout: '70%',
       plugins: {
         legend: { position: 'bottom', labels: { color: c.text, padding: 15, usePointStyle: true, pointStyle: 'circle' } },
-        tooltip: { backgroundColor: c.tooltipBg, titleColor: c.tooltipText, bodyColor: c.tooltipText, padding: 10, cornerRadius: 8,
-          callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + ' (' + (trades.length ? (ctx.parsed/trades.length*100).toFixed(1):0) + '%)' }}
+        tooltip: { backgroundColor: c.tooltipBg, titleColor: c.tooltipText, bodyColor: c.tooltipText, padding: 10, cornerRadius: 8, callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + ' (' + (trades.length ? (ctx.parsed/trades.length*100).toFixed(1):0) + '%)' }}
       }
     }
   });
@@ -1569,7 +1445,7 @@ function renderSymbolChart() {
   applyChartDefaults();
   const c = getChartColors();
   const bySymbol = {};
-  trades.forEach(t => { bySymbol[t.symbol] = (bySymbol[t.symbol]||0) + (t.pnl || 0); });
+  trades.forEach(t => { if (t.symbol) bySymbol[t.symbol] = (bySymbol[t.symbol]||0) + (t.pnl || 0); });
   const symbols = Object.keys(bySymbol).sort((a,b) => bySymbol[b]-bySymbol[a]).slice(0,8);
   const canvas = document.getElementById('symbolChart');
   if (!canvas) return;
@@ -1578,19 +1454,11 @@ function renderSymbolChart() {
     type: 'bar',
     data: {
       labels: symbols,
-      datasets: [{
-        label: 'P&L', data: symbols.map(s => Math.round(bySymbol[s])),
-        backgroundColor: symbols.map(s => bySymbol[s] >= 0 ? (isDarkMode ? '#34d399' : '#10b981') : '#ef4444'),
-        borderRadius: 6, barPercentage: 0.7
-      }]
+      datasets: [{ label: 'P&L', data: symbols.map(s => Math.round(bySymbol[s])), backgroundColor: symbols.map(s => bySymbol[s] >= 0 ? (isDarkMode ? '#34d399' : '#10b981') : '#ef4444'), borderRadius: 6, barPercentage: 0.7 }]
     },
     options: {
-      ...chartAnimOpts,
-      indexAxis: 'y',
-      plugins: { legend: { display:false },
-        tooltip: { backgroundColor: c.tooltipBg, titleColor: c.tooltipText, bodyColor: c.tooltipText, padding: 10, cornerRadius: 8,
-          callbacks: { label: ctx => '$' + ctx.parsed.x.toLocaleString() }}
-      },
+      ...chartAnimOpts, indexAxis: 'y',
+      plugins: { legend: { display:false }, tooltip: { backgroundColor: c.tooltipBg, titleColor: c.tooltipText, bodyColor: c.tooltipText, padding: 10, cornerRadius: 8, callbacks: { label: ctx => '$' + ctx.parsed.x.toLocaleString() }} },
       scales: {
         x: { grid: { color: c.grid }, ticks: { color: c.text, callback: v => '$'+v } },
         y: { grid: { display:false }, ticks: { color: c.text } }
@@ -1603,11 +1471,7 @@ function renderMonthlyChart() {
   applyChartDefaults();
   const c = getChartColors();
   const months = {};
-  trades.forEach(t => {
-    if (!t.date) return;
-    const m = t.date.slice(0,7);
-    months[m] = (months[m]||0) + (t.pnl || 0);
-  });
+  trades.forEach(t => { if (!t.date) return; const m = t.date.slice(0,7); months[m] = (months[m]||0) + (t.pnl || 0); });
   const sorted = Object.keys(months).sort().slice(-6);
   const labels = sorted.map(m => { const [y,mo] = m.split('-'); return new Date(y,mo-1).toLocaleString('id-ID',{month:'short'}); });
   const canvas = document.getElementById('monthlyChart');
@@ -1617,18 +1481,11 @@ function renderMonthlyChart() {
     type: 'bar',
     data: {
       labels: labels,
-      datasets: [{
-        label: 'P&L', data: sorted.map(m => Math.round(months[m])),
-        backgroundColor: sorted.map(m => months[m] >= 0 ? '#10b981' : '#ef4444'),
-        borderRadius: 8, barPercentage: 0.6
-      }]
+      datasets: [{ label: 'P&L', data: sorted.map(m => Math.round(months[m])), backgroundColor: sorted.map(m => months[m] >= 0 ? '#10b981' : '#ef4444'), borderRadius: 8, barPercentage: 0.6 }]
     },
     options: {
       ...chartAnimOpts,
-      plugins: { legend: { display:false },
-        tooltip: { backgroundColor: c.tooltipBg, titleColor: c.tooltipText, bodyColor: c.tooltipText, padding: 10, cornerRadius: 8,
-          callbacks: { label: ctx => '$' + ctx.parsed.y.toLocaleString() }}
-      },
+      plugins: { legend: { display:false }, tooltip: { backgroundColor: c.tooltipBg, titleColor: c.tooltipText, bodyColor: c.tooltipText, padding: 10, cornerRadius: 8, callbacks: { label: ctx => '$' + ctx.parsed.y.toLocaleString() }} },
       scales: {
         x: { grid: { display:false }, ticks: { color: c.text } },
         y: { grid: { color: c.grid }, ticks: { color: c.text, callback: v => '$'+v.toLocaleString() } }
@@ -1652,31 +1509,20 @@ function renderStrategyChart() {
   if (!canvas) return;
   if (charts.strategy) { charts.strategy.destroy(); charts.strategy = null; }
   if (keys.length === 0) {
-    // Show empty state
-    charts.strategy = new Chart(canvas, {
-      type: 'polarArea',
-      data: { labels: [], datasets: [{ data: [], backgroundColor: [] }] },
-      options: { ...chartAnimOpts, plugins: { legend: { display: false } } }
-    });
+    charts.strategy = new Chart(canvas, { type: 'polarArea', data: { labels: [], datasets: [{ data: [], backgroundColor: [] }] }, options: { ...chartAnimOpts, plugins: { legend: { display: false } } } });
     return;
   }
   charts.strategy = new Chart(canvas, {
     type: 'polarArea',
     data: {
       labels: keys,
-      datasets: [{
-        data: keys.map(k => Math.round(strat[k].wins/strat[k].total*100)),
-        backgroundColor: ['#10b98199','#3b82f699','#d9770699','#a855f799','#ec489999','#14b8a699'],
-        borderColor: isDarkMode ? '#141414' : '#ffffff',
-        borderWidth: 2
-      }]
+      datasets: [{ data: keys.map(k => Math.round(strat[k].wins/strat[k].total*100)), backgroundColor: ['#10b98199','#3b82f699','#d9770699','#a855f799','#ec489999','#14b8a699'], borderColor: isDarkMode ? '#141414' : '#ffffff', borderWidth: 2 }]
     },
     options: {
       ...chartAnimOpts,
       plugins: {
         legend: { position: 'bottom', labels: { color: c.text, font: { size: 10 }, padding: 10, usePointStyle: true, pointStyle: 'circle' } },
-        tooltip: { backgroundColor: c.tooltipBg, titleColor: c.tooltipText, bodyColor: c.tooltipText, padding: 10, cornerRadius: 8,
-          callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed.r + '% WR' }}
+        tooltip: { backgroundColor: c.tooltipBg, titleColor: c.tooltipText, bodyColor: c.tooltipText, padding: 10, cornerRadius: 8, callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed.r + '% WR' }}
       },
       scales: { r: { ticks: { display: false }, grid: { color: c.grid }, angleLines: { color: c.grid } } }
     }
@@ -1694,11 +1540,6 @@ function renderAllCharts() {
 
 // ===== MODAL CRUD =====
 function openModal(editing = null) {
-  if (!sheetUrl && trades.length === 0) {
-    showToast('Setup Google Sheets terlebih dahulu untuk menyimpan data', 'warning', 4000);
-    setTimeout(openSettings, 500);
-    return;
-  }
   const modal = document.getElementById('modal');
   if (!modal) return;
   document.getElementById('tradeForm').reset();
@@ -1749,7 +1590,7 @@ document.getElementById('tradeForm').addEventListener('submit', async (e) => {
   const pnl = Math.round((exit - entry) * (side==='long'?1:-1) * size * 100) / 100;
   const newDate = document.getElementById('f-date').value;
   const data = {
-    id: id || (Date.now() + Math.floor(Math.random() * 1000)),
+    id: id || String(Date.now() + Math.floor(Math.random() * 1000)),
     date: newDate,
     time: document.getElementById('f-time').value || '',
     symbol: document.getElementById('f-symbol').value.toUpperCase(),
@@ -1763,23 +1604,32 @@ document.getElementById('tradeForm').addEventListener('submit', async (e) => {
   };
 
   try {
+    let sheetResult = { ok: true };
     if (id) {
       const i = trades.findIndex(t => String(t.id) === String(id));
       if (i >= 0) {
         data.createdAt = trades[i].createdAt;
         trades[i] = { ...trades[i], ...data };
-        await updateTradeInSheet(trades[i]);
-        showToast('Trade berhasil diupdate', 'success');
+        sheetResult = await updateTradeInSheet(trades[i]);
       }
     } else {
       trades.push(data);
-      await createTradeInSheet(data);
+      sheetResult = await createTradeInSheet(data);
       currentMonthKey = newDate.slice(0,7);
-      showToast('Trade berhasil disimpan ke Google Sheets', 'success');
     }
     saveLocal();
     closeModal();
     renderAll();
+
+    if (sheetResult.ok) {
+      if (sheetResult.offline) {
+        showToast('Trade tersimpan lokal (offline mode)', 'info');
+      } else {
+        showToast('✓ Trade berhasil disimpan ke Google Sheets', 'success');
+      }
+    } else {
+      showToast('Trade tersimpan lokal, tapi gagal sync ke Sheets: ' + sheetResult.error + '. Klik Sync untuk retry.', 'warning', 6000);
+    }
   } catch (err) {
     showToast('Gagal menyimpan: ' + err.message, 'error');
   } finally {
@@ -1813,7 +1663,7 @@ function openDetail(id) {
     <div class="flex items-center justify-between mb-5 pb-4" style="border-bottom: 1px solid var(--border);">
       <div class="flex items-center gap-3">
         <div class="w-12 h-12 rounded-xl flex items-center justify-center font-bold text-white" style="background: ${t.side==='long' ? '#10b981' : '#ef4444'};">
-          ${t.symbol.slice(0,2)}
+          ${(t.symbol||'??').slice(0,2)}
         </div>
         <div>
           <h4 class="text-lg font-bold text-primary">${t.symbol}</h4>
@@ -1836,14 +1686,10 @@ function openDetail(id) {
       <div class="info-item"><div class="info-label">Jam Entry</div><div class="info-value">${t.time || '-'}</div></div>
       <div class="info-item"><div class="info-label">Simbol</div><div class="info-value">${t.symbol}</div></div>
     </div>
-    ${t.notes ? `
-      <div class="p-4 rounded-lg bg-soft">
-        <div class="text-xs text-secondary font-medium mb-1.5 flex items-center gap-1.5">
-          <i class="fas fa-note-sticky text-amber-500"></i> Catatan Trading
-        </div>
+    ${t.notes ? `<div class="p-4 rounded-lg bg-soft">
+        <div class="text-xs text-secondary font-medium mb-1.5 flex items-center gap-1.5"><i class="fas fa-note-sticky text-amber-500"></i> Catatan Trading</div>
         <p class="text-sm text-primary leading-relaxed">${t.notes}</p>
-      </div>
-    ` : ''}
+      </div>` : ''}
   `;
   document.getElementById('detailModal').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -1863,12 +1709,16 @@ async function deleteFromDetail() {
   if (!currentDetailId) return;
   if (!confirm('Hapus trade ini?')) return;
   const id = currentDetailId;
-  await deleteTradeInSheet(id);
+  const result = await deleteTradeInSheet(id);
   trades = trades.filter(t => String(t.id) !== String(id));
   saveLocal();
   closeDetail();
   renderAll();
-  showToast('Trade berhasil dihapus', 'success');
+  if (result.ok) {
+    showToast('Trade berhasil dihapus', 'success');
+  } else {
+    showToast('Trade dihapus lokal, gagal di Sheets: ' + result.error, 'warning', 5000);
+  }
 }
 
 function openZoom(src) {
@@ -1879,7 +1729,6 @@ function closeZoom() {
   document.getElementById('zoomOverlay').classList.remove('open');
 }
 
-// ===== RENDER ALL =====
 function renderAll() {
   try { renderStats(); } catch(e) {}
   try { populateMonthSelect(); updateMonthNav(); } catch(e) {}
@@ -1894,23 +1743,20 @@ window.addEventListener('DOMContentLoaded', () => {
   try { sheetUrl = localStorage.getItem('tradelog_sheet_url') || ''; } catch(e) {}
   loadLocal();
 
-  // Set current month
   const months = getAvailableMonths();
   currentMonthKey = months.length > 0 ? months[0] : new Date().toISOString().slice(0,7);
 
   renderAll();
   initReveal();
 
-  // Update sync UI
   if (sheetUrl) {
     updateSyncUI('connected', 'Terhubung · ' + trades.length + ' trade');
-    // Auto sync on load
     setTimeout(syncFromSheet, 800);
   } else {
     updateSyncUI('disconnected', 'Belum terhubung');
     if (trades.length === 0) {
       setTimeout(() => {
-        showToast('Selamat datang! Setup Google Sheets untuk mulai menyimpan data.', 'info', 5000);
+        showToast('Selamat datang! Klik ikon ⚙️ untuk setup Google Sheets.', 'info', 5000);
       }, 500);
     }
   }
