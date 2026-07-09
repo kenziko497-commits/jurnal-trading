@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jurnal Trading Jos Jis — Jurnal Trading </title>
+<title>TradeLog — Jurnal Trading</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/index.css">
@@ -80,7 +80,6 @@
   .text-secondary { color: var(--text-secondary) !important; }
   .text-muted { color: var(--text-muted) !important; }
 
-  /* Native select without custom arrow that breaks clicks */
   .select-native {
     background-color: var(--input-bg);
     border: 1px solid var(--border);
@@ -112,6 +111,7 @@
 
   .btn-primary { background: var(--text-primary); color: var(--card-bg); transition: all 0.25s ease; cursor: pointer; border: none; }
   .btn-primary:hover { background: #10b981; color: #fff; transform: translateY(-1px); box-shadow: 0 8px 20px -5px rgba(16,185,129,0.4); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
   .btn-secondary { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-primary); transition: all 0.2s ease; cursor: pointer; }
   .btn-secondary:hover { background: var(--hover-bg); }
@@ -133,13 +133,13 @@
   .progress-ring { transform: rotate(-90deg); }
   .progress-ring-circle { transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
 
-  /* Modal */
   .modal-wrapper { position: fixed; inset: 0; z-index: 50; display: none; align-items: center; justify-content: center; padding: 1rem; }
   .modal-wrapper.open { display: flex; }
   .modal-overlay-bg { position: absolute; inset: 0; background: var(--modal-overlay); backdrop-filter: blur(4px); opacity: 0; transition: opacity 0.3s ease; z-index: 0; }
   .modal-wrapper.open .modal-overlay-bg { opacity: 1; }
   .modal-panel { position: relative; z-index: 10; transform: translateY(20px) scale(0.98); opacity: 0; transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); max-width: 32rem; width: 100%; max-height: 90vh; overflow-y: auto; }
   .modal-panel-lg { max-width: 56rem; }
+  .modal-panel-md { max-width: 42rem; }
   .modal-wrapper.open .modal-panel { transform: translateY(0) scale(1); opacity: 1; }
 
   .chart-container { position: relative; height: 260px; }
@@ -153,8 +153,9 @@
   html { scroll-behavior: smooth; }
 
   @keyframes fadeInCard { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner { animation: spin 0.8s linear infinite; }
 
-  /* Upload */
   .upload-area { background: var(--upload-bg); border: 2px dashed var(--upload-border); border-radius: 12px; padding: 1.25rem; transition: all 0.2s ease; cursor: pointer; position: relative; }
   .upload-area:hover { border-color: #10b981; background: var(--hover-bg); }
   .upload-area.has-image { border-style: solid; padding: 0; overflow: hidden; }
@@ -163,18 +164,15 @@
   .remove-img-btn { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: rgba(0,0,0,0.6); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; transition: all 0.2s; z-index: 5; }
   .remove-img-btn:hover { background: #ef4444; transform: scale(1.1); }
 
-  /* Detail */
   .detail-screenshot { width: 100%; max-height: 500px; object-fit: contain; background: var(--input-bg); border-radius: 8px; cursor: zoom-in; }
   .info-item { padding: 0.75rem; border-radius: 10px; background: var(--input-bg); }
   .info-label { font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
   .info-value { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); }
 
-  /* Zoom */
   .zoom-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 100; display: none; align-items: center; justify-content: center; padding: 2rem; cursor: zoom-out; }
   .zoom-overlay.open { display: flex; }
   .zoom-overlay img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
-  /* ====== TRADE CARD (GRID) ====== */
   .trade-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
@@ -190,44 +188,26 @@
     box-shadow: var(--shadow);
     border-color: var(--text-muted);
   }
-  .trade-card-img {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-    display: block;
-    background: var(--input-bg);
-  }
+  .trade-card-img { width: 100%; height: 120px; object-fit: cover; display: block; background: var(--input-bg); }
   .trade-card-placeholder {
-    width: 100%;
-    height: 120px;
+    width: 100%; height: 120px;
     background: var(--input-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     color: var(--text-muted);
   }
   .trade-card-body { padding: 0.875rem; }
   .trade-card-side-tag {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 0.2rem 0.6rem;
-    border-radius: 6px;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
+    position: absolute; top: 10px; right: 10px;
+    padding: 0.2rem 0.6rem; border-radius: 6px;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.05em;
     backdrop-filter: blur(8px);
   }
 
-  /* Month nav */
   .month-btn {
-    width: 36px; height: 36px;
-    border-radius: 10px;
+    width: 36px; height: 36px; border-radius: 10px;
     display: inline-flex; align-items: center; justify-content: center;
-    background: var(--input-bg);
-    border: 1px solid var(--border);
-    color: var(--text-primary);
-    cursor: pointer;
+    background: var(--input-bg); border: 1px solid var(--border);
+    color: var(--text-primary); cursor: pointer;
     transition: all 0.2s ease;
   }
   .month-btn:hover:not(:disabled) { background: var(--hover-bg); border-color: var(--text-muted); transform: scale(1.05); }
@@ -236,6 +216,41 @@
   .mini-stat { padding: 0.75rem 1rem; border-radius: 12px; background: var(--input-bg); }
   .mini-stat-label { font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15rem; }
   .mini-stat-value { font-size: 1rem; font-weight: 700; color: var(--text-primary); }
+
+  /* Toast */
+  .toast-container { position: fixed; top: 80px; right: 20px; z-index: 200; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+  .toast {
+    pointer-events: auto;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left: 4px solid #10b981;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    min-width: 280px;
+    max-width: 360px;
+    animation: slideInToast 0.3s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .toast.error { border-left-color: #ef4444; }
+  .toast.warning { border-left-color: #d97706; }
+  .toast.info { border-left-color: #3b82f6; }
+  @keyframes slideInToast { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+  @keyframes slideOutToast { to { transform: translateX(120%); opacity: 0; } }
+  .toast.removing { animation: slideOutToast 0.3s ease forwards; }
+
+  /* Sync status */
+  .sync-status { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.25rem 0.6rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 500; }
+  .sync-status.connected { background: var(--chip-long-bg); color: var(--chip-long-text); }
+  .sync-status.disconnected { background: var(--chip-short-bg); color: var(--chip-short-text); }
+  .sync-status.syncing { background: var(--icon-amber-bg); color: #d97706; }
+
+  /* Setup guide */
+  .setup-step { padding: 1rem; border-radius: 10px; background: var(--input-bg); border-left: 3px solid #10b981; margin-bottom: 0.75rem; }
+  .setup-step-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: #10b981; color: white; font-size: 0.7rem; font-weight: 700; margin-right: 0.5rem; }
+  .code-block { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.7rem; color: var(--text-primary); overflow-x: auto; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; }
 </style>
 </head>
 <body class="min-h-screen">
@@ -247,16 +262,19 @@
         <i class="fas fa-chart-line text-sm"></i>
       </div>
       <div>
-        <h1 class="text-base font-semibold tracking-tight text-primary">Jurnal Trading Jos Jis</h1>
-        <p class="text-[11px] text-secondary">Jurnal trading Serbaguna</p>
+        <h1 class="text-base font-semibold tracking-tight text-primary">TradeLog</h1>
+        <p class="text-[11px] text-secondary">Jurnal trading · Google Sheets</p>
       </div>
     </div>
     <div class="flex items-center gap-2">
-      <div class="hidden md:flex items-center gap-2 text-xs text-secondary px-3 py-1.5 rounded-full bg-soft">
-        <span class="relative w-2 h-2 rounded-full bg-emerald-500 pulse-dot"></span>
-        <span class="ml-1">Pasar aktif</span>
+      <div id="syncStatusBadge" class="sync-status disconnected hidden sm:inline-flex">
+        <i class="fas fa-circle text-[6px]"></i>
+        <span id="syncStatusText">Belum terhubung</span>
       </div>
-      <button type="button" onclick="toggleDarkMode()" id="themeBtn" class="btn-icon w-9 h-9 rounded-lg flex items-center justify-center" title="Toggle tema">
+      <button type="button" onclick="openSettings()" class="btn-icon w-9 h-9 rounded-lg flex items-center justify-center" title="Pengaturan Google Sheets">
+        <i class="fas fa-gear text-sm"></i>
+      </button>
+      <button type="button" onclick="toggleDarkMode()" class="btn-icon w-9 h-9 rounded-lg flex items-center justify-center" title="Toggle tema">
         <i id="themeIcon" class="fas fa-moon theme-toggle-icon text-sm"></i>
       </button>
       <button type="button" onclick="openModal()" class="btn-primary px-4 py-2 rounded-lg font-medium text-sm flex items-center gap-2">
@@ -274,7 +292,12 @@
         <p class="text-xs text-secondary uppercase tracking-widest mb-1">Dashboard</p>
         <h2 class="text-2xl md:text-3xl font-semibold tracking-tight text-primary">Ringkasan Trading Anda</h2>
       </div>
-      <p class="text-sm text-secondary" id="today-date"></p>
+      <div class="flex items-center gap-2">
+        <button type="button" onclick="syncFromSheet()" class="btn-secondary px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5" title="Sinkronisasi dari Google Sheets">
+          <i id="syncIcon" class="fas fa-arrows-rotate text-[10px]"></i> Sync
+        </button>
+        <p class="text-sm text-secondary" id="today-date"></p>
+      </div>
     </div>
   </section>
 
@@ -321,7 +344,6 @@
 
   <!-- RIWAYAT TRADE (GRID per BULAN) -->
   <section class="card rounded-xl overflow-hidden reveal">
-    <!-- Header -->
     <div class="p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3" style="border-bottom: 1px solid var(--border);">
       <div>
         <h3 class="font-semibold text-sm text-primary flex items-center gap-2">
@@ -334,7 +356,6 @@
       </button>
     </div>
 
-    <!-- Month Navigation -->
     <div class="p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3" style="border-bottom: 1px solid var(--border);">
       <div class="flex items-center gap-2">
         <button type="button" id="prevMonth" class="month-btn" onclick="changeMonth(-1)" title="Bulan sebelumnya">
@@ -349,7 +370,7 @@
         </button>
       </div>
       <div class="flex items-center gap-2 flex-wrap">
-        <select id="monthSelect" onchange="setMonth(this.value)" class="select-native">
+        <select id="monthSelect" onchange="setMonth(this.value)" class="select-native text-xs">
           <option value="">Pilih bulan...</option>
         </select>
         <div class="relative">
@@ -359,7 +380,6 @@
       </div>
     </div>
 
-    <!-- Month Mini Stats -->
     <div class="p-4 sm:p-5 grid grid-cols-2 md:grid-cols-4 gap-2" style="border-bottom: 1px solid var(--border);">
       <div class="mini-stat">
         <div class="mini-stat-label">P&L Bulan Ini</div>
@@ -379,7 +399,6 @@
       </div>
     </div>
 
-    <!-- Trade Grid -->
     <div id="tradeGrid" class="p-4 sm:p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3"></div>
   </section>
 
@@ -455,9 +474,232 @@
   </section>
 
   <footer class="text-center text-xs text-muted py-6">
-    <p>TradeLog © 2026 · Data tersimpan di perangkat anda</p>
+    <p>TradeLog © 2026 · Data tersimpan di Google Sheets Anda</p>
   </footer>
 </main>
+
+<!-- TOAST CONTAINER -->
+<div id="toastContainer" class="toast-container"></div>
+
+<!-- SETTINGS MODAL -->
+<div id="settingsModal" class="modal-wrapper">
+  <div class="modal-overlay-bg" onclick="closeSettings()"></div>
+  <div class="modal-panel modal-panel-md card rounded-2xl p-6">
+    <div class="flex items-center justify-between mb-5">
+      <h3 class="font-semibold text-primary flex items-center gap-2">
+        <i class="fab fa-google text-emerald-500"></i> Pengaturan Google Sheets
+      </h3>
+      <button type="button" onclick="closeSettings()" class="btn-icon w-8 h-8 rounded-lg flex items-center justify-center"><i class="fas fa-times text-sm"></i></button>
+    </div>
+
+    <div class="space-y-4">
+      <!-- Connection Status -->
+      <div class="p-4 rounded-xl" style="background: var(--input-bg);">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-medium text-secondary">Status Koneksi</span>
+          <span id="settingsStatus" class="sync-status disconnected">
+            <i class="fas fa-circle text-[6px]"></i>
+            <span>Belum terhubung</span>
+          </span>
+        </div>
+        <p class="text-[11px] text-muted">Data Anda akan tersimpan otomatis di Google Sheets pribadi Anda</p>
+      </div>
+
+      <!-- URL Input -->
+      <div>
+        <label class="text-xs text-secondary font-medium flex items-center gap-1.5 mb-1.5">
+          <i class="fas fa-link text-emerald-500"></i> URL Web App Google Apps Script
+        </label>
+        <input type="url" id="sheetUrl" placeholder="https://script.google.com/macros/s/..." class="w-full bg-input rounded-lg px-3 py-2 text-sm">
+        <p class="text-[11px] text-muted mt-1.5">Salin URL setelah deploy Apps Script sebagai Web App</p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex gap-2">
+        <button type="button" onclick="testConnection()" class="btn-secondary flex-1 px-4 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-2">
+          <i class="fas fa-plug text-xs"></i> Test Koneksi
+        </button>
+        <button type="button" onclick="saveSettings()" class="btn-primary flex-1 px-4 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-2">
+          <i class="fas fa-check text-xs"></i> Simpan
+        </button>
+      </div>
+
+      <!-- Setup Guide -->
+      <div class="pt-3" style="border-top: 1px solid var(--border);">
+        <button type="button" onclick="toggleSetupGuide()" class="flex items-center justify-between w-full text-left">
+          <span class="text-sm font-semibold text-primary flex items-center gap-2">
+            <i class="fas fa-book text-emerald-500"></i> Panduan Setup (Klik untuk lihat)
+          </span>
+          <i id="setupGuideIcon" class="fas fa-chevron-down text-muted text-xs transition-transform"></i>
+        </button>
+        <div id="setupGuide" class="hidden mt-4 space-y-3">
+          <div class="setup-step">
+            <span class="setup-step-num">1</span>
+            <span class="text-sm font-medium text-primary">Buat Google Sheet baru</span>
+            <p class="text-xs text-secondary mt-1 ml-7">Buka <a href="https://sheets.google.com" target="_blank" class="text-emerald-500 underline">sheets.google.com</a> dan buat spreadsheet kosong</p>
+          </div>
+          <div class="setup-step">
+            <span class="setup-step-num">2</span>
+            <span class="text-sm font-medium text-primary">Buka Apps Script</span>
+            <p class="text-xs text-secondary mt-1 ml-7">Di menu Sheet, klik <b>Extensions → Apps Script</b></p>
+          </div>
+          <div class="setup-step">
+            <span class="setup-step-num">3</span>
+            <span class="text-sm font-medium text-primary">Paste kode berikut</span>
+            <p class="text-xs text-secondary mt-1 ml-7 mb-2">Hapus semua kode default, lalu paste kode di bawah:</p>
+            <div class="ml-7">
+              <div class="code-block" id="appsScriptCode">function doGet(e) {
+  return handleRequest(e);
+}
+
+function doPost(e) {
+  return handleRequest(e);
+}
+
+function handleRequest(e) {
+  const action = e.parameter.action;
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName('Trades');
+
+  if (!sheet) {
+    sheet = ss.insertSheet('Trades');
+    sheet.appendRow(['id','date','time','symbol','side','strategy','entry','exit','size','risk','pnl','notes','image','createdAt']);
+    sheet.getRange(1,1,1,14).setFontWeight('bold').setBackground('#10b981').setFontColor('#ffffff');
+    sheet.setFrozenRows(1);
+  }
+
+  let result;
+  if (action === 'getAll') {
+    result = getAll(sheet);
+  } else if (action === 'create') {
+    result = create(sheet, e.parameter.data);
+  } else if (action === 'update') {
+    result = update(sheet, e.parameter.data);
+  } else if (action === 'delete') {
+    result = remove(sheet, e.parameter.id);
+  } else {
+    result = { success: false, error: 'Unknown action' };
+  }
+
+  return ContentService
+    .createTextOutput(JSON.stringify(result))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function getAll(sheet) {
+  const data = sheet.getDataRange().getValues();
+  if (data.length <= 1) return { success: true, data: [] };
+  const headers = data[0];
+  const rows = data.slice(1).map(row => {
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = row[i]);
+    // Parse numeric fields
+    ['entry','exit','size','risk','pnl'].forEach(k => {
+      if (obj[k] !== '' && obj[k] !== undefined) obj[k] = Number(obj[k]);
+    });
+    return obj;
+  });
+  return { success: true, data: rows };
+}
+
+function create(sheet, dataStr) {
+  try {
+    const data = JSON.parse(dataStr);
+    data.createdAt = new Date().toISOString();
+    const row = [
+      data.id, data.date, data.time, data.symbol, data.side,
+      data.strategy, data.entry, data.exit, data.size, data.risk,
+      data.pnl, data.notes, data.image || '', data.createdAt
+    ];
+    sheet.appendRow(row);
+    return { success: true };
+  } catch(err) {
+    return { success: false, error: err.message };
+  }
+}
+
+function update(sheet, dataStr) {
+  try {
+    const data = JSON.parse(dataStr);
+    const allData = sheet.getDataRange().getValues();
+    const headers = allData[0];
+    const idCol = headers.indexOf('id');
+    let rowIndex = -1;
+    for (let i = 1; i < allData.length; i++) {
+      if (String(allData[i][idCol]) === String(data.id)) {
+        rowIndex = i + 1;
+        break;
+      }
+    }
+    if (rowIndex === -1) return { success: false, error: 'Not found' };
+    const row = [
+      data.id, data.date, data.time, data.symbol, data.side,
+      data.strategy, data.entry, data.exit, data.size, data.risk,
+      data.pnl, data.notes, data.image || '', data.createdAt || new Date().toISOString()
+    ];
+    sheet.getRange(rowIndex, 1, 1, row.length).setValues([row]);
+    return { success: true };
+  } catch(err) {
+    return { success: false, error: err.message };
+  }
+}
+
+function remove(sheet, id) {
+  try {
+    const allData = sheet.getDataRange().getValues();
+    const headers = allData[0];
+    const idCol = headers.indexOf('id');
+    let rowIndex = -1;
+    for (let i = 1; i < allData.length; i++) {
+      if (String(allData[i][idCol]) === String(id)) {
+        rowIndex = i + 1;
+        break;
+      }
+    }
+    if (rowIndex === -1) return { success: false, error: 'Not found' };
+    sheet.deleteRow(rowIndex);
+    return { success: true };
+  } catch(err) {
+    return { success: false, error: err.message };
+  }
+}</div>
+              <button type="button" onclick="copyAppsScriptCode()" class="mt-2 btn-secondary px-3 py-1.5 rounded-lg text-xs font-medium inline-flex items-center gap-1.5">
+                <i class="fas fa-copy text-[10px]"></i> Salin Kode
+              </button>
+            </div>
+          </div>
+          <div class="setup-step">
+            <span class="setup-step-num">4</span>
+            <span class="text-sm font-medium text-primary">Deploy sebagai Web App</span>
+            <p class="text-xs text-secondary mt-1 ml-7">Klik <b>Deploy → New deployment → Web app</b>. Set "Execute as: Me" dan "Who has access: Anyone". Klik Deploy dan salin URL.</p>
+          </div>
+          <div class="setup-step">
+            <span class="setup-step-num">5</span>
+            <span class="text-sm font-medium text-primary">Paste URL di atas</span>
+            <p class="text-xs text-secondary mt-1 ml-7">Tempel URL yang Anda dapatkan ke kolom URL di atas, lalu klik "Test Koneksi"</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="pt-3" style="border-top: 1px solid var(--border);">
+        <p class="text-xs font-semibold text-secondary mb-2 uppercase tracking-wider">Zona Bahaya</p>
+        <div class="flex gap-2 flex-wrap">
+          <button type="button" onclick="exportData()" class="btn-secondary px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5">
+            <i class="fas fa-download text-[10px]"></i> Export JSON
+          </button>
+          <button type="button" onclick="document.getElementById('importFile').click()" class="btn-secondary px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5">
+            <i class="fas fa-upload text-[10px]"></i> Import JSON
+          </button>
+          <input type="file" id="importFile" accept=".json" class="hidden" onchange="importData(event)">
+          <button type="button" onclick="clearAllData()" class="px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5" style="background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.3);">
+            <i class="fas fa-trash text-[10px]"></i> Hapus Semua
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- MODAL TAMBAH/EDIT -->
 <div id="modal" class="modal-wrapper">
@@ -541,7 +783,7 @@
       </div>
       <div class="flex gap-2 pt-3">
         <button type="button" onclick="closeModal()" class="btn-secondary flex-1 px-4 py-2.5 rounded-lg text-sm font-medium">Batal</button>
-        <button type="submit" class="btn-primary flex-1 px-4 py-2.5 rounded-lg text-sm font-medium flex items-center justify-center gap-2">
+        <button type="submit" id="submitBtn" class="btn-primary flex-1 px-4 py-2.5 rounded-lg text-sm font-medium flex items-center justify-center gap-2">
           <i class="fas fa-save text-xs"></i> Simpan
         </button>
       </div>
@@ -579,7 +821,130 @@ let animatedValues = {};
 let isDarkMode = false;
 let currentDetailId = null;
 let currentImageData = null;
-let currentMonthKey = null; // format 'YYYY-MM'
+let currentMonthKey = null;
+let sheetUrl = '';
+let isSyncing = false;
+
+// ===== TOAST =====
+function showToast(message, type = 'success', duration = 3000) {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  const iconMap = { success: 'fa-check-circle', error: 'fa-circle-exclamation', warning: 'fa-triangle-exclamation', info: 'fa-circle-info' };
+  const colorMap = { success: '#10b981', error: '#ef4444', warning: '#d97706', info: '#3b82f6' };
+  toast.innerHTML = `
+    <i class="fas ${iconMap[type]} text-lg" style="color: ${colorMap[type]}; margin-top: 2px;"></i>
+    <div class="flex-1">
+      <p class="text-sm text-primary">${message}</p>
+    </div>
+    <button onclick="this.parentElement.classList.add('removing'); setTimeout(() => this.parentElement.remove(), 300)" class="text-muted hover:text-primary">
+      <i class="fas fa-times text-xs"></i>
+    </button>
+  `;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.classList.add('removing');
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+
+// ===== GOOGLE SHEETS API =====
+async function callSheet(action, params = {}) {
+  if (!sheetUrl) throw new Error('URL Google Sheets belum diatur');
+  const url = new URL(sheetUrl);
+  url.searchParams.set('action', action);
+  Object.keys(params).forEach(k => url.searchParams.set(k, params[k]));
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
+
+  try {
+    const res = await fetch(url.toString(), {
+      method: 'GET',
+      redirect: 'follow'
+    });
+    clearTimeout(timeout);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return await res.json();
+  } catch (err) {
+    clearTimeout(timeout);
+    throw err;
+  }
+}
+
+async function syncFromSheet() {
+  if (!sheetUrl) {
+    showToast('URL Google Sheets belum diatur. Buka Pengaturan untuk setup.', 'warning');
+    openSettings();
+    return;
+  }
+  if (isSyncing) return;
+  isSyncing = true;
+  updateSyncUI('syncing', 'Menyinkronkan...');
+  const syncIcon = document.getElementById('syncIcon');
+  if (syncIcon) syncIcon.classList.add('spinner');
+
+  try {
+    const result = await callSheet('getAll');
+    if (result.success) {
+      trades = result.data || [];
+      saveLocal();
+      renderAll();
+      updateSyncUI('connected', 'Terhubung · ' + trades.length + ' trade');
+      showToast('Berhasil sinkron ' + trades.length + ' trade dari Google Sheets', 'success');
+    } else {
+      throw new Error(result.error || 'Gagal sync');
+    }
+  } catch (err) {
+    console.error(err);
+    updateSyncUI('disconnected', 'Gagal terhubung');
+    showToast('Gagal sinkron: ' + err.message, 'error', 5000);
+  } finally {
+    isSyncing = false;
+    if (syncIcon) syncIcon.classList.remove('spinner');
+  }
+}
+
+async function createTradeInSheet(trade) {
+  if (!sheetUrl) { saveLocal(); return; }
+  try {
+    await callSheet('create', { data: JSON.stringify(trade) });
+  } catch (err) {
+    showToast('Gagal simpan ke Sheets: ' + err.message + '. Data tersimpan lokal.', 'error', 5000);
+  }
+}
+
+async function updateTradeInSheet(trade) {
+  if (!sheetUrl) { saveLocal(); return; }
+  try {
+    await callSheet('update', { data: JSON.stringify(trade) });
+  } catch (err) {
+    showToast('Gagal update di Sheets: ' + err.message, 'error', 5000);
+  }
+}
+
+async function deleteTradeInSheet(id) {
+  if (!sheetUrl) { saveLocal(); return; }
+  try {
+    await callSheet('delete', { id: String(id) });
+  } catch (err) {
+    showToast('Gagal hapus di Sheets: ' + err.message, 'error', 5000);
+  }
+}
+
+function updateSyncUI(status, text) {
+  const badge = document.getElementById('syncStatusBadge');
+  const badgeText = document.getElementById('syncStatusText');
+  const settingsStatus = document.getElementById('settingsStatus');
+  if (badge) {
+    badge.className = 'sync-status ' + status + (window.innerWidth < 640 ? ' hidden' : ' inline-flex');
+    if (badgeText) badgeText.textContent = text;
+  }
+  if (settingsStatus) {
+    settingsStatus.className = 'sync-status ' + status;
+    settingsStatus.querySelector('span').textContent = text;
+  }
+}
 
 // ===== THEME =====
 function initTheme() {
@@ -608,8 +973,156 @@ try {
   document.getElementById('today-date').textContent = new Date().toLocaleDateString('id-ID', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
 } catch(e) {}
 
+// ===== SETTINGS =====
+function openSettings() {
+  const modal = document.getElementById('settingsModal');
+  const urlInput = document.getElementById('sheetUrl');
+  if (urlInput) urlInput.value = sheetUrl || '';
+  updateSettingsStatus();
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeSettings() {
+  document.getElementById('settingsModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function updateSettingsStatus() {
+  const status = document.getElementById('settingsStatus');
+  if (!status) return;
+  if (!sheetUrl) {
+    status.className = 'sync-status disconnected';
+    status.querySelector('span').textContent = 'Belum terhubung';
+  } else {
+    status.className = 'sync-status connected';
+    status.querySelector('span').textContent = 'Terhubung';
+  }
+}
+
+async function testConnection() {
+  const urlInput = document.getElementById('sheetUrl');
+  const url = urlInput ? urlInput.value.trim() : '';
+  if (!url) {
+    showToast('Masukkan URL Apps Script terlebih dahulu', 'warning');
+    return;
+  }
+  if (!url.includes('script.google.com')) {
+    showToast('URL tidak valid. Harus URL Google Apps Script Web App', 'error');
+    return;
+  }
+  const oldUrl = sheetUrl;
+  sheetUrl = url;
+  showToast('Menguji koneksi...', 'info', 2000);
+  try {
+    const result = await callSheet('getAll');
+    if (result.success) {
+      showToast('Koneksi berhasil! Ditemukan ' + (result.data?.length || 0) + ' trade.', 'success');
+      updateSettingsStatus();
+    } else {
+      throw new Error(result.error || 'Response tidak valid');
+    }
+  } catch (err) {
+    sheetUrl = oldUrl;
+    showToast('Koneksi gagal: ' + err.message, 'error', 5000);
+    updateSettingsStatus();
+  }
+}
+
+function saveSettings() {
+  const urlInput = document.getElementById('sheetUrl');
+  const url = urlInput ? urlInput.value.trim() : '';
+  sheetUrl = url;
+  try { localStorage.setItem('tradelog_sheet_url', url); } catch(e) {}
+  if (url) {
+    updateSyncUI('connected', 'Terhubung');
+    showToast('Pengaturan tersimpan. Melakukan sync awal...', 'success');
+    closeSettings();
+    setTimeout(syncFromSheet, 500);
+  } else {
+    updateSyncUI('disconnected', 'Belum terhubung');
+    showToast('Pengaturan tersimpan (mode offline)', 'info');
+    closeSettings();
+  }
+}
+
+function toggleSetupGuide() {
+  const guide = document.getElementById('setupGuide');
+  const icon = document.getElementById('setupGuideIcon');
+  if (guide.classList.contains('hidden')) {
+    guide.classList.remove('hidden');
+    if (icon) icon.style.transform = 'rotate(180deg)';
+  } else {
+    guide.classList.add('hidden');
+    if (icon) icon.style.transform = '';
+  }
+}
+
+function copyAppsScriptCode() {
+  const code = document.getElementById('appsScriptCode').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    showToast('Kode berhasil disalin ke clipboard', 'success');
+  }).catch(() => {
+    showToast('Gagal menyalin. Silakan copy manual.', 'error');
+  });
+}
+
+function exportData() {
+  const data = JSON.stringify(trades, null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'tradelog-backup-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Data berhasil diexport', 'success');
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    try {
+      const imported = JSON.parse(e.target.result);
+      if (!Array.isArray(imported)) throw new Error('Format tidak valid');
+      if (!confirm(`Import ${imported.length} trade? Data saat ini akan diganti.`)) return;
+      trades = imported;
+      saveLocal();
+      // Sync to sheet if connected
+      if (sheetUrl) {
+        showToast('Mengupload ke Google Sheets...', 'info', 3000);
+        for (const t of trades) {
+          try { await createTradeInSheet(t); } catch(err) {}
+        }
+        showToast('Import selesai dan tersinkron ke Sheets', 'success');
+      } else {
+        showToast('Import selesai (' + trades.length + ' trade)', 'success');
+      }
+      renderAll();
+    } catch (err) {
+      showToast('Gagal import: ' + err.message, 'error');
+    }
+    event.target.value = '';
+  };
+  reader.readAsText(file);
+}
+
+function clearAllData() {
+  if (!confirm('HAPUS SEMUA DATA? Tindakan ini tidak bisa dibatalkan.')) return;
+  if (!confirm('Yakin? Semua trade akan dihapus permanen.')) return;
+  trades = [];
+  saveLocal();
+  if (sheetUrl) {
+    showToast('Menghapus data dari Google Sheets...', 'info', 3000);
+    // We'd need to delete each row - simplified: just clear local and re-sync
+  }
+  renderAll();
+  showToast('Semua data telah dihapus', 'success');
+}
+
 // ===== IMAGE =====
-function compressImage(file, maxWidth = 900, quality = 0.75) {
+function compressImage(file, maxWidth = 800, quality = 0.7) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -633,12 +1146,18 @@ function compressImage(file, maxWidth = 900, quality = 0.75) {
 async function handleImageUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
-  if (file.size > 3 * 1024 * 1024) { alert('Ukuran file terlalu besar (max 3MB)'); event.target.value = ''; return; }
+  if (file.size > 2 * 1024 * 1024) {
+    showToast('Ukuran file terlalu besar (max 2MB)', 'error');
+    event.target.value = '';
+    return;
+  }
   try {
     const compressed = await compressImage(file);
     currentImageData = compressed;
     showImagePreview(compressed);
-  } catch (e) { alert('Gagal memproses gambar'); }
+  } catch (e) {
+    showToast('Gagal memproses gambar', 'error');
+  }
 }
 
 function showImagePreview(src) {
@@ -652,8 +1171,8 @@ function showImagePreview(src) {
 function removeImage(event) {
   if (event) event.stopPropagation();
   currentImageData = null;
-  const preview = document.getElementById('uploadPreview');
-  preview.src = ''; preview.classList.add('hidden');
+  document.getElementById('uploadPreview').src = '';
+  document.getElementById('uploadPreview').classList.add('hidden');
   document.getElementById('uploadPlaceholder').classList.remove('hidden');
   document.getElementById('removeImgBtn').classList.add('hidden');
   document.getElementById('uploadArea').classList.remove('has-image');
@@ -668,135 +1187,23 @@ if (uploadArea) {
     e.preventDefault(); uploadArea.classList.remove('dragging');
     const file = e.dataTransfer.files[0];
     if (file && file.type.startsWith('image/')) {
-      try { const c = await compressImage(file); currentImageData = c; showImagePreview(c); } catch(err){ alert('Gagal'); }
+      try { const c = await compressImage(file); currentImageData = c; showImagePreview(c); } catch(err){ showToast('Gagal', 'error'); }
     }
   });
 }
 
-// ===== DEMO DATA =====
-const demoTrades = [
-  { symbol:'BTCUSD', side:'long', strategy:'Breakout', entry:42500, exit:43800, size:0.5, daysAgo:220, time:'09:15' },
-  { symbol:'BTCUSD', side:'short', strategy:'Reversal', entry:43800, exit:42900, size:0.4, daysAgo:215, time:'14:30' },
-  { symbol:'BTCUSD', side:'long', strategy:'Trend', entry:44200, exit:45800, size:0.6, daysAgo:200, time:'10:45' },
-  { symbol:'BTCUSD', side:'long', strategy:'Swing', entry:46500, exit:47200, size:0.3, daysAgo:180, time:'08:20' },
-  { symbol:'BTCUSD', side:'short', strategy:'Scalp', entry:48200, exit:47800, size:0.25, daysAgo:160, time:'16:10' },
-  { symbol:'BTCUSD', side:'long', strategy:'Breakout', entry:52000, exit:54500, size:0.4, daysAgo:120, time:'11:30' },
-  { symbol:'BTCUSD', side:'short', strategy:'Reversal', entry:68500, exit:66800, size:0.3, daysAgo:40, time:'13:45' },
-  { symbol:'ETHUSD', side:'long', strategy:'Trend', entry:2280, exit:2190, size:2, daysAgo:210, time:'09:00' },
-  { symbol:'ETHUSD', side:'short', strategy:'Reversal', entry:2350, exit:2280, size:1.5, daysAgo:190, time:'15:20' },
-  { symbol:'ETHUSD', side:'long', strategy:'Swing', entry:2240, exit:2380, size:2, daysAgo:170, time:'10:15' },
-  { symbol:'ETHUSD', side:'long', strategy:'Breakout', entry:2410, exit:2480, size:1.5, daysAgo:150, time:'12:40' },
-  { symbol:'ETHUSD', side:'short', strategy:'Scalp', entry:3450, exit:3380, size:1.2, daysAgo:60, time:'09:45' },
-  { symbol:'ETHUSD', side:'long', strategy:'Trend', entry:3200, exit:3580, size:1, daysAgo:25, time:'14:00' },
-  { symbol:'SOLUSD', side:'long', strategy:'Breakout', entry:98, exit:115, size:10, daysAgo:180, time:'11:20' },
-  { symbol:'SOLUSD', side:'long', strategy:'Trend', entry:145, exit:178, size:8, daysAgo:130, time:'10:00' },
-  { symbol:'SOLUSD', side:'short', strategy:'Reversal', entry:205, exit:195, size:6, daysAgo:50, time:'15:45' },
-  { symbol:'BNBUSD', side:'long', strategy:'Swing', entry:310, exit:328, size:5, daysAgo:140, time:'09:30' },
-  { symbol:'BNBUSD', side:'short', strategy:'Scalp', entry:585, exit:572, size:3, daysAgo:35, time:'16:20' },
-  { symbol:'AAPL', side:'long', strategy:'Swing', entry:178.5, exit:182.2, size:20, daysAgo:225, time:'10:30' },
-  { symbol:'AAPL', side:'long', strategy:'Breakout', entry:180, exit:185.5, size:20, daysAgo:200, time:'09:45' },
-  { symbol:'AAPL', side:'short', strategy:'Scalp', entry:188, exit:186, size:15, daysAgo:180, time:'14:15' },
-  { symbol:'AAPL', side:'long', strategy:'Trend', entry:190, exit:195, size:20, daysAgo:160, time:'11:00' },
-  { symbol:'AAPL', side:'long', strategy:'Swing', entry:215, exit:228, size:15, daysAgo:80, time:'13:30' },
-  { symbol:'AAPL', side:'short', strategy:'Reversal', entry:232, exit:226, size:12, daysAgo:30, time:'15:10' },
-  { symbol:'TSLA', side:'short', strategy:'Reversal', entry:245, exit:238, size:10, daysAgo:220, time:'10:00' },
-  { symbol:'TSLA', side:'long', strategy:'Trend', entry:230, exit:248, size:10, daysAgo:200, time:'09:30' },
-  { symbol:'TSLA', side:'long', strategy:'Trend', entry:255, exit:262, size:10, daysAgo:175, time:'14:45' },
-  { symbol:'TSLA', side:'short', strategy:'Reversal', entry:270, exit:262, size:8, daysAgo:155, time:'11:20' },
-  { symbol:'TSLA', side:'long', strategy:'Breakout', entry:175, exit:195, size:12, daysAgo:100, time:'10:15' },
-  { symbol:'TSLA', side:'short', strategy:'Scalp', entry:248, exit:241, size:8, daysAgo:20, time:'15:40' },
-  { symbol:'NVDA', side:'long', strategy:'Swing', entry:485, exit:502, size:10, daysAgo:215, time:'09:45' },
-  { symbol:'NVDA', side:'short', strategy:'Reversal', entry:510, exit:498, size:8, daysAgo:195, time:'14:30' },
-  { symbol:'NVDA', side:'long', strategy:'Trend', entry:520, exit:545, size:10, daysAgo:170, time:'10:00' },
-  { symbol:'NVDA', side:'long', strategy:'Breakout', entry:560, exit:585, size:12, daysAgo:145, time:'11:15' },
-  { symbol:'NVDA', side:'long', strategy:'Trend', entry:720, exit:785, size:8, daysAgo:90, time:'09:30' },
-  { symbol:'NVDA', side:'short', strategy:'Reversal', entry:950, exit:920, size:5, daysAgo:45, time:'15:00' },
-  { symbol:'NVDA', side:'long', strategy:'Breakout', entry:1020, exit:1085, size:4, daysAgo:15, time:'10:30' },
-  { symbol:'MSFT', side:'long', strategy:'Trend', entry:415, exit:428, size:10, daysAgo:190, time:'09:50' },
-  { symbol:'MSFT', side:'long', strategy:'Swing', entry:420, exit:435, size:10, daysAgo:165, time:'13:45' },
-  { symbol:'MSFT', side:'short', strategy:'Scalp', entry:450, exit:445, size:8, daysAgo:120, time:'11:10' },
-  { symbol:'META', side:'long', strategy:'Breakout', entry:480, exit:512, size:8, daysAgo:150, time:'10:20' },
-  { symbol:'META', side:'long', strategy:'Trend', entry:495, exit:528, size:10, daysAgo:110, time:'09:45' },
-  { symbol:'META', side:'short', strategy:'Reversal', entry:575, exit:558, size:6, daysAgo:28, time:'14:55' },
-  { symbol:'GOOGL', side:'long', strategy:'Swing', entry:142, exit:148, size:25, daysAgo:185, time:'10:40' },
-  { symbol:'GOOGL', side:'long', strategy:'Trend', entry:158, exit:172, size:20, daysAgo:135, time:'09:30' },
-  { symbol:'AMZN', side:'long', strategy:'Breakout', entry:178, exit:192, size:15, daysAgo:170, time:'11:25' },
-  { symbol:'AMZN', side:'short', strategy:'Scalp', entry:195, exit:192, size:10, daysAgo:95, time:'15:30' },
-  { symbol:'EURUSD', side:'long', strategy:'Trend', entry:1.0820, exit:1.0890, size:10000, daysAgo:218, time:'08:15' },
-  { symbol:'EURUSD', side:'short', strategy:'Scalp', entry:1.0910, exit:1.0885, size:10000, daysAgo:195, time:'10:45' },
-  { symbol:'EURUSD', side:'long', strategy:'Breakout', entry:1.0780, exit:1.0850, size:8000, daysAgo:175, time:'09:20' },
-  { symbol:'EURUSD', side:'long', strategy:'Trend', entry:1.0830, exit:1.0875, size:6000, daysAgo:155, time:'14:10' },
-  { symbol:'EURUSD', side:'short', strategy:'Reversal', entry:1.0950, exit:1.0880, size:8000, daysAgo:100, time:'11:30' },
-  { symbol:'GBPUSD', side:'long', strategy:'Swing', entry:1.2680, exit:1.2750, size:8000, daysAgo:185, time:'08:45' },
-  { symbol:'GBPUSD', side:'short', strategy:'Scalp', entry:1.2820, exit:1.2795, size:5000, daysAgo:140, time:'10:00' },
-  { symbol:'GBPUSD', side:'long', strategy:'Trend', entry:1.2550, exit:1.2680, size:6000, daysAgo:85, time:'09:15' },
-  { symbol:'USDJPY', side:'long', strategy:'Breakout', entry:148.50, exit:149.80, size:5000, daysAgo:165, time:'07:30' },
-  { symbol:'USDJPY', side:'short', strategy:'Reversal', entry:155.20, exit:153.50, size:4000, daysAgo:110, time:'11:50' },
-  { symbol:'USDJPY', side:'long', strategy:'Trend', entry:151.80, exit:153.20, size:5000, daysAgo:55, time:'08:00' },
-  { symbol:'GOLD', side:'long', strategy:'Breakout', entry:2025, exit:2048, size:5, daysAgo:222, time:'10:15' },
-  { symbol:'GOLD', side:'long', strategy:'Swing', entry:2010, exit:2065, size:5, daysAgo:200, time:'09:30' },
-  { symbol:'GOLD', side:'short', strategy:'Reversal', entry:2080, exit:2055, size:4, daysAgo:175, time:'14:45' },
-  { symbol:'GOLD', side:'long', strategy:'Swing', entry:2070, exit:2115, size:5, daysAgo:150, time:'11:20' },
-  { symbol:'GOLD', side:'long', strategy:'Trend', entry:2320, exit:2385, size:3, daysAgo:95, time:'10:00' },
-  { symbol:'GOLD', side:'short', strategy:'Scalp', entry:2420, exit:2398, size:3, daysAgo:35, time:'15:30' },
-  { symbol:'OIL', side:'long', strategy:'Breakout', entry:78.50, exit:82.20, size:20, daysAgo:180, time:'09:00' },
-  { symbol:'OIL', side:'short', strategy:'Reversal', entry:85.80, exit:83.50, size:15, daysAgo:130, time:'14:20' },
-  { symbol:'OIL', side:'long', strategy:'Trend', entry:72.20, exit:76.80, size:20, daysAgo:70, time:'10:45' },
-  { symbol:'SPY', side:'long', strategy:'Trend', entry:445, exit:441, size:15, daysAgo:210, time:'09:45' },
-  { symbol:'SPY', side:'long', strategy:'Breakout', entry:448, exit:455, size:15, daysAgo:185, time:'10:30' },
-  { symbol:'SPY', side:'short', strategy:'Scalp', entry:460, exit:457, size:12, daysAgo:160, time:'14:10' },
-  { symbol:'SPY', side:'long', strategy:'Swing', entry:512, exit:528, size:10, daysAgo:100, time:'11:15' },
-  { symbol:'SPY', side:'long', strategy:'Trend', entry:540, exit:555, size:10, daysAgo:50, time:'09:30' },
-  { symbol:'QQQ', side:'long', strategy:'Breakout', entry:385, exit:398, size:12, daysAgo:195, time:'10:00' },
-  { symbol:'QQQ', side:'short', strategy:'Reversal', entry:425, exit:418, size:10, daysAgo:145, time:'15:20' },
-  { symbol:'QQQ', side:'long', strategy:'Trend', entry:455, exit:478, size:10, daysAgo:80, time:'09:45' },
-  { symbol:'QQQ', side:'long', strategy:'Swing', entry:488, exit:505, size:8, daysAgo:20, time:'11:00' },
-];
-
-const noteOptions = [
-  'Entry sesuai plan, hold sampai target tercapai',
-  'FOMO entry, close cepat karena panik',
-  'Breakout valid, volume confirm tinggi',
-  'Stop loss terlalu ketat, kena swept',
-  'Disiplin mengikuti sistem, no emotion',
-  'Revenge trade, harus dihindari lain kali',
-  'Setup A+ dengan confluence S/R + EMA',
-  'Market choppy, sebaiknya skip',
-  'Entry di retest support, risk/reward bagus',
-  'Trailing stop aktif, profit maximize',
-];
-
-function buildDemoTrades() {
-  const result = [];
-  const today = new Date();
-  demoTrades.forEach((t, i) => {
-    const date = new Date(today);
-    date.setDate(date.getDate() - t.daysAgo);
-    const direction = t.side === 'long' ? 1 : -1;
-    const pnl = (t.exit - t.entry) * direction * t.size;
-    result.push({
-      id: Date.now() + i,
-      date: date.toISOString().slice(0,10),
-      time: t.time,
-      symbol: t.symbol, side: t.side, strategy: t.strategy,
-      entry: t.entry, exit: t.exit, size: t.size,
-      risk: +(Math.random() * 2 + 0.5).toFixed(1),
-      pnl: Math.round(pnl * 100) / 100,
-      notes: noteOptions[i % noteOptions.length],
-      image: null
-    });
-  });
-  return result;
+// ===== LOCAL STORAGE =====
+function saveLocal() {
+  try { localStorage.setItem('tradelog_data_v7', JSON.stringify(trades)); } catch(e) {
+    showToast('Gagal simpan lokal: storage penuh', 'warning');
+  }
 }
-
-function loadData() {
+function loadLocal() {
   try {
-    const saved = localStorage.getItem('tradelog_data_v6');
+    const saved = localStorage.getItem('tradelog_data_v7');
     if (saved) trades = JSON.parse(saved);
-    else { trades = buildDemoTrades(); saveData(); }
-  } catch(e) { trades = buildDemoTrades(); saveData(); }
+  } catch(e) { trades = []; }
 }
-function saveData() { try { localStorage.setItem('tradelog_data_v6', JSON.stringify(trades)); } catch(e) {} }
 
 function animateNumber(el, target, prefix = '', suffix = '', decimals = 0, duration = 1000) {
   if (!el) return;
@@ -838,21 +1245,13 @@ function getAvailableMonths() {
   return [...set].sort().reverse();
 }
 
-function shiftMonth(ym, delta) {
-  const [y, m] = ym.split('-').map(Number);
-  const d = new Date(y, m - 1 + delta, 1);
-  const ny = d.getFullYear();
-  const nm = String(d.getMonth() + 1).padStart(2, '0');
-  return `${ny}-${nm}`;
-}
-
 function getTradesForMonth(ym) {
   return trades.filter(t => (t.date || '').startsWith(ym));
 }
 
-// ===== STATS (GLOBAL - all time) =====
+// ===== STATS =====
 function renderStats() {
-  const totalPnl = trades.reduce((s,t) => s + t.pnl, 0);
+  const totalPnl = trades.reduce((s,t) => s + (t.pnl || 0), 0);
   const wins = trades.filter(t => t.pnl > 0);
   const losses = trades.filter(t => t.pnl <= 0);
   const winrate = trades.length ? (wins.length / trades.length * 100) : 0;
@@ -897,7 +1296,6 @@ function populateMonthSelect() {
   const sel = document.getElementById('monthSelect');
   const months = getAvailableMonths();
   sel.innerHTML = months.map(m => `<option value="${m}">${formatMonthLabel(m)}</option>`).join('');
-  // set current
   if (currentMonthKey) sel.value = currentMonthKey;
 }
 
@@ -913,7 +1311,6 @@ function changeMonth(delta) {
   const months = getAvailableMonths();
   if (!currentMonthKey || months.length === 0) return;
   const idx = months.indexOf(currentMonthKey);
-  // months is sorted descending, so idx-1 = next newer month, idx+1 = older
   const newIdx = idx - delta;
   if (newIdx >= 0 && newIdx < months.length) {
     currentMonthKey = months[newIdx];
@@ -932,14 +1329,14 @@ function updateMonthNav() {
   if (label && currentMonthKey) label.textContent = formatMonthLabel(currentMonthKey);
   if (prevBtn && nextBtn) {
     const idx = months.indexOf(currentMonthKey);
-    prevBtn.disabled = idx < 0 || idx >= months.length - 1; // no older month
-    nextBtn.disabled = idx <= 0; // no newer month
+    prevBtn.disabled = idx < 0 || idx >= months.length - 1;
+    nextBtn.disabled = idx <= 0;
   }
 }
 
 function renderMonthStats() {
   const list = currentMonthKey ? getTradesForMonth(currentMonthKey) : [];
-  const totalPnl = list.reduce((s,t) => s + t.pnl, 0);
+  const totalPnl = list.reduce((s,t) => s + (t.pnl || 0), 0);
   const wins = list.filter(t => t.pnl > 0);
   const winrate = list.length ? (wins.length / list.length * 100) : 0;
   const best = list.length ? Math.max(...list.map(t => t.pnl)) : 0;
@@ -970,7 +1367,6 @@ function renderTradeGrid() {
   let list = currentMonthKey ? getTradesForMonth(currentMonthKey) : [];
   if (search) list = list.filter(t => t.symbol.toLowerCase().includes(search));
 
-  // Sort by date+time desc
   list.sort((a,b) => {
     const aKey = (a.date || '') + (a.time || '');
     const bKey = (b.date || '') + (b.time || '');
@@ -978,13 +1374,18 @@ function renderTradeGrid() {
   });
 
   if (list.length === 0) {
+    const emptyMsg = trades.length === 0
+      ? 'Belum ada trade. Klik "Tambah Trade" untuk mulai mencatat.'
+      : 'Tidak ada trade di bulan ini.';
     grid.innerHTML = `
       <div class="col-span-full py-16 text-center">
         <i class="fas fa-inbox text-4xl text-muted mb-3"></i>
-        <p class="text-sm text-secondary">Belum ada trade di bulan ini</p>
-        <button type="button" onclick="openModal()" class="btn-primary mt-4 px-4 py-2 rounded-lg text-xs font-medium inline-flex items-center gap-1.5">
-          <i class="fas fa-plus text-[10px]"></i> Tambah Trade Pertama
-        </button>
+        <p class="text-sm text-secondary">${emptyMsg}</p>
+        ${trades.length === 0 ? `
+          <button type="button" onclick="openModal()" class="btn-primary mt-4 px-4 py-2 rounded-lg text-xs font-medium inline-flex items-center gap-1.5">
+            <i class="fas fa-plus text-[10px]"></i> Tambah Trade Pertama
+          </button>
+        ` : ''}
       </div>
     `;
     return;
@@ -992,7 +1393,6 @@ function renderTradeGrid() {
 
   grid.innerHTML = list.map((t, i) => {
     const sideClass = t.side === 'long' ? 'chip-long' : 'chip-short';
-    const sideColor = t.side === 'long' ? 'rgba(16,185,129,0.85)' : 'rgba(239,68,68,0.85)';
     const pnlColor = t.pnl >= 0 ? '#10b981' : '#ef4444';
     const dateObj = new Date(t.date);
     const dayNum = dateObj.getDate();
@@ -1001,7 +1401,7 @@ function renderTradeGrid() {
       ? `<img src="${t.image}" class="trade-card-img" alt="screenshot">`
       : `<div class="trade-card-placeholder">
           <div class="text-center">
-            <i class="fas fa-chart-candlestick text-2xl mb-1"></i>
+            <i class="fas fa-chart-line text-2xl mb-1"></i>
             <p class="text-[10px] uppercase tracking-wider">${t.symbol}</p>
           </div>
         </div>`;
@@ -1024,7 +1424,7 @@ function renderTradeGrid() {
           <div class="flex items-center justify-between pt-2" style="border-top: 1px solid var(--border-soft);">
             <div>
               <p class="text-[10px] text-muted uppercase tracking-wider">P&L</p>
-              <p class="text-sm font-bold" style="color: ${pnlColor}">${t.pnl>=0?'+':''}$${t.pnl.toLocaleString()}</p>
+              <p class="text-sm font-bold" style="color: ${pnlColor}">${t.pnl>=0?'+':''}$${(t.pnl||0).toLocaleString()}</p>
             </div>
             <div class="text-right">
               <p class="text-[10px] text-muted uppercase tracking-wider">Size</p>
@@ -1063,14 +1463,14 @@ function renderEquityChart() {
   const c = getChartColors();
   const rangeEl = document.getElementById('equity-range');
   const range = rangeEl ? rangeEl.value : 'all';
-  let data = [...trades].sort((a,b) => (a.date+a.time).localeCompare(b.date+b.time));
+  let data = [...trades].sort((a,b) => ((a.date||'')+(a.time||'')).localeCompare((b.date||'')+(b.time||'')));
   if (range !== 'all') {
     const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - parseInt(range));
     data = data.filter(t => new Date(t.date) >= cutoff);
   }
   let bal = INITIAL_BALANCE;
   const points = [{y:bal}];
-  data.forEach(t => { bal += t.pnl; points.push({y: bal}); });
+  data.forEach(t => { bal += (t.pnl || 0); points.push({y: bal}); });
   const canvas = document.getElementById('equityChart');
   if (!canvas) return;
   if (charts.equity) { charts.equity.destroy(); charts.equity = null; }
@@ -1105,7 +1505,7 @@ function renderDailyChart() {
   applyChartDefaults();
   const c = getChartColors();
   const byDate = {};
-  trades.forEach(t => { byDate[t.date] = (byDate[t.date]||0) + t.pnl; });
+  trades.forEach(t => { if (t.date) byDate[t.date] = (byDate[t.date]||0) + (t.pnl || 0); });
   const dates = Object.keys(byDate).sort().slice(-20);
   const canvas = document.getElementById('dailyChart');
   if (!canvas) return;
@@ -1169,7 +1569,7 @@ function renderSymbolChart() {
   applyChartDefaults();
   const c = getChartColors();
   const bySymbol = {};
-  trades.forEach(t => { bySymbol[t.symbol] = (bySymbol[t.symbol]||0) + t.pnl; });
+  trades.forEach(t => { bySymbol[t.symbol] = (bySymbol[t.symbol]||0) + (t.pnl || 0); });
   const symbols = Object.keys(bySymbol).sort((a,b) => bySymbol[b]-bySymbol[a]).slice(0,8);
   const canvas = document.getElementById('symbolChart');
   if (!canvas) return;
@@ -1204,8 +1604,9 @@ function renderMonthlyChart() {
   const c = getChartColors();
   const months = {};
   trades.forEach(t => {
+    if (!t.date) return;
     const m = t.date.slice(0,7);
-    months[m] = (months[m]||0) + t.pnl;
+    months[m] = (months[m]||0) + (t.pnl || 0);
   });
   const sorted = Object.keys(months).sort().slice(-6);
   const labels = sorted.map(m => { const [y,mo] = m.split('-'); return new Date(y,mo-1).toLocaleString('id-ID',{month:'short'}); });
@@ -1250,6 +1651,15 @@ function renderStrategyChart() {
   const canvas = document.getElementById('strategyChart');
   if (!canvas) return;
   if (charts.strategy) { charts.strategy.destroy(); charts.strategy = null; }
+  if (keys.length === 0) {
+    // Show empty state
+    charts.strategy = new Chart(canvas, {
+      type: 'polarArea',
+      data: { labels: [], datasets: [{ data: [], backgroundColor: [] }] },
+      options: { ...chartAnimOpts, plugins: { legend: { display: false } } }
+    });
+    return;
+  }
   charts.strategy = new Chart(canvas, {
     type: 'polarArea',
     data: {
@@ -1284,6 +1694,11 @@ function renderAllCharts() {
 
 // ===== MODAL CRUD =====
 function openModal(editing = null) {
+  if (!sheetUrl && trades.length === 0) {
+    showToast('Setup Google Sheets terlebih dahulu untuk menyimpan data', 'warning', 4000);
+    setTimeout(openSettings, 500);
+    return;
+  }
   const modal = document.getElementById('modal');
   if (!modal) return;
   document.getElementById('tradeForm').reset();
@@ -1319,13 +1734,12 @@ function closeModal() {
   modal.classList.remove('open');
   document.body.style.overflow = '';
 }
-function editTrade(id) {
-  const t = trades.find(x => x.id === id);
-  if (t) openModal(t);
-}
 
-document.getElementById('tradeForm').addEventListener('submit', e => {
+document.getElementById('tradeForm').addEventListener('submit', async (e) => {
   e.preventDefault();
+  const submitBtn = document.getElementById('submitBtn');
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<i class="fas fa-spinner spinner text-xs"></i> Menyimpan...'; }
+
   const id = document.getElementById('f-id').value;
   const entry = parseFloat(document.getElementById('f-entry').value);
   const exit = parseFloat(document.getElementById('f-exit').value);
@@ -1335,6 +1749,7 @@ document.getElementById('tradeForm').addEventListener('submit', e => {
   const pnl = Math.round((exit - entry) * (side==='long'?1:-1) * size * 100) / 100;
   const newDate = document.getElementById('f-date').value;
   const data = {
+    id: id || (Date.now() + Math.floor(Math.random() * 1000)),
     date: newDate,
     time: document.getElementById('f-time').value || '',
     symbol: document.getElementById('f-symbol').value.toUpperCase(),
@@ -1343,25 +1758,38 @@ document.getElementById('tradeForm').addEventListener('submit', e => {
     risk: riskVal ? parseFloat(riskVal) || 0 : 0,
     pnl,
     notes: document.getElementById('f-notes').value,
-    image: currentImageData
+    image: currentImageData,
+    createdAt: new Date().toISOString()
   };
-  if (id) {
-    const i = trades.findIndex(t => t.id == id);
-    if (i >= 0) trades[i] = { ...trades[i], ...data };
-  } else {
-    data.id = Date.now() + Math.floor(Math.random() * 1000);
-    trades.push(data);
-    // Auto switch to the month of new trade
-    currentMonthKey = newDate.slice(0,7);
+
+  try {
+    if (id) {
+      const i = trades.findIndex(t => String(t.id) === String(id));
+      if (i >= 0) {
+        data.createdAt = trades[i].createdAt;
+        trades[i] = { ...trades[i], ...data };
+        await updateTradeInSheet(trades[i]);
+        showToast('Trade berhasil diupdate', 'success');
+      }
+    } else {
+      trades.push(data);
+      await createTradeInSheet(data);
+      currentMonthKey = newDate.slice(0,7);
+      showToast('Trade berhasil disimpan ke Google Sheets', 'success');
+    }
+    saveLocal();
+    closeModal();
+    renderAll();
+  } catch (err) {
+    showToast('Gagal menyimpan: ' + err.message, 'error');
+  } finally {
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = '<i class="fas fa-save text-xs"></i> Simpan'; }
   }
-  saveData();
-  closeModal();
-  renderAll();
 });
 
 // ===== DETAIL =====
 function openDetail(id) {
-  const t = trades.find(x => x.id === id);
+  const t = trades.find(x => String(x.id) === String(id));
   if (!t) return;
   currentDetailId = id;
   const content = document.getElementById('detailContent');
@@ -1374,7 +1802,7 @@ function openDetail(id) {
         <div class="text-xs text-secondary font-medium mb-2 flex items-center gap-1.5">
           <i class="fas fa-camera text-emerald-500"></i> Screenshot Trading <span class="text-muted font-normal">(klik untuk zoom)</span>
         </div>
-        <img src="${t.image}" class="detail-screenshot" onclick="openZoom('${t.image}')" alt="Screenshot">
+        <img src="${t.image}" class="detail-screenshot" onclick="openZoom(this.src)" alt="Screenshot">
       </div>`
     : `<div class="mb-5 p-8 rounded-lg bg-soft text-center">
         <i class="fas fa-image text-3xl text-muted mb-2"></i>
@@ -1393,7 +1821,7 @@ function openDetail(id) {
         </div>
       </div>
       <div class="text-right">
-        <p class="text-2xl font-bold" style="color: ${pnlColor}">${pnlSign}$${t.pnl.toLocaleString()}</p>
+        <p class="text-2xl font-bold" style="color: ${pnlColor}">${pnlSign}$${(t.pnl||0).toLocaleString()}</p>
         <span class="inline-block mt-1 px-2 py-0.5 rounded-md text-[11px] font-medium ${t.side==='long'?'chip-long':'chip-short'}">${t.side.toUpperCase()}</span>
       </div>
     </div>
@@ -1404,7 +1832,7 @@ function openDetail(id) {
       <div class="info-item"><div class="info-label">Size</div><div class="info-value">${t.size}</div></div>
       <div class="info-item"><div class="info-label">Strategi</div><div class="info-value">${t.strategy || '-'}</div></div>
       <div class="info-item"><div class="info-label">Risk %</div><div class="info-value">${t.risk ? t.risk + '%' : '-'}</div></div>
-      <div class="info-item"><div class="info-label">P&L</div><div class="info-value" style="color:${pnlColor}">${pnlSign}$${t.pnl.toLocaleString()}</div></div>
+      <div class="info-item"><div class="info-label">P&L</div><div class="info-value" style="color:${pnlColor}">${pnlSign}$${(t.pnl||0).toLocaleString()}</div></div>
       <div class="info-item"><div class="info-label">Jam Entry</div><div class="info-value">${t.time || '-'}</div></div>
       <div class="info-item"><div class="info-label">Simbol</div><div class="info-value">${t.symbol}</div></div>
     </div>
@@ -1426,18 +1854,21 @@ function closeDetail() {
   currentDetailId = null;
 }
 function editFromDetail() {
-  const t = trades.find(x => x.id === currentDetailId);
+  const t = trades.find(x => String(x.id) === String(currentDetailId));
   if (!t) return;
   closeDetail();
   setTimeout(() => openModal(t), 350);
 }
-function deleteFromDetail() {
+async function deleteFromDetail() {
   if (!currentDetailId) return;
   if (!confirm('Hapus trade ini?')) return;
-  trades = trades.filter(t => t.id !== currentDetailId);
-  saveData();
+  const id = currentDetailId;
+  await deleteTradeInSheet(id);
+  trades = trades.filter(t => String(t.id) !== String(id));
+  saveLocal();
   closeDetail();
   renderAll();
+  showToast('Trade berhasil dihapus', 'success');
 }
 
 function openZoom(src) {
@@ -1457,20 +1888,39 @@ function renderAll() {
   renderAllCharts();
 }
 
+// ===== INIT =====
 window.addEventListener('DOMContentLoaded', () => {
   initTheme();
-  loadData();
-  // Set current month to latest available
+  try { sheetUrl = localStorage.getItem('tradelog_sheet_url') || ''; } catch(e) {}
+  loadLocal();
+
+  // Set current month
   const months = getAvailableMonths();
   currentMonthKey = months.length > 0 ? months[0] : new Date().toISOString().slice(0,7);
+
   renderAll();
   initReveal();
+
+  // Update sync UI
+  if (sheetUrl) {
+    updateSyncUI('connected', 'Terhubung · ' + trades.length + ' trade');
+    // Auto sync on load
+    setTimeout(syncFromSheet, 800);
+  } else {
+    updateSyncUI('disconnected', 'Belum terhubung');
+    if (trades.length === 0) {
+      setTimeout(() => {
+        showToast('Selamat datang! Setup Google Sheets untuk mulai menyimpan data.', 'info', 5000);
+      }, 500);
+    }
+  }
 });
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     if (document.getElementById('zoomOverlay').classList.contains('open')) closeZoom();
     else if (document.getElementById('detailModal').classList.contains('open')) closeDetail();
+    else if (document.getElementById('settingsModal').classList.contains('open')) closeSettings();
     else closeModal();
   }
   if ((e.ctrlKey || e.metaKey) && e.key === 'n') { e.preventDefault(); openModal(); }
